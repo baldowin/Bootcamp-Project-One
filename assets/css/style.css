@@ -1,0 +1,27 @@
+.navbar{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(51, 51, 51)
+}
+
+.top-bar{
+    height: 50px;
+}
+
+.buy-sell-buttons{
+    display: flex; 
+    justify-content: center;
+}
+
+.graph-button{
+    margin: 10px 20px 20px 20px;
+}
+
+.polls-options{
+    margin: 20px 20px 20px 20px;
+}
+
+.stock-radio{
+    margin: 0 25px 0px 5px;
+}
+
