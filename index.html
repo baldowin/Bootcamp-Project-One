@@ -15,23 +15,65 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 </head>
 <body>
+  <div class="entryForm">
   <div class="row">
-    <div class="large-12 columns">
-
-      <nav class="top-bar" data-topbar>
-        <section>
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="#">Ri$ky Bu$iness</a></h1>
-            </li>
-            <li class="toggle-topbar menu-icon">
-              <a href="#"><span>menu</span></a>
-            </li>
-          </ul>
-        </section>
-      </nav>
+        <div class="large-12 columns">
+          <nav class="top-bar" data-topbar>
+            <section>
+              <ul class="title-area">
+                <li class="name">
+                  <h1><a href="#">Ri$ky Bu$iness</a></h1>
+                </li>
+                <li class="toggle-topbar menu-icon">
+                  <a href="#"><span>menu</span></a>
+                </li>
+              </ul>
+            </section>
+          </nav>
+          <div class="row" style="background-color: beige">
+              <div class="large-6 small-6 columns">
+                  <p>Welcome to Ri$ky Bu$iness! Please enter your name and email address to begin</p>
+              </div>
+            <form>
+              <div class="large-6 small-6 columns">
+                <label>Full Name
+                  <input type="text" placeholder="Enter Full Name"/>
+                </label>
+                <label>Email Address
+                  <input type="text" placeholder="Enter email address"/>
+                </label>
+                <!-- <div class="col " -->
+                <!-- <div class="small-3 columns">
+                    <a href="#" class="button postfix">Submit Info</a>
+                  </div> -->
+                  <div id="button">
+                      <button id="submitInfo">Submit Info</button>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+
+      <!--Instructions-->
+      <div class="gameInstructions"k>
+        <div id=startGameButton>
+          <button id="instructions">
+            <p>You are a day trader! You will be given a random stock from a random point in history. The graph of how this stock performed
+              will be diplayed in real time. You will be given $100,000 and the opportunity to "Buy" and "Sell".
+            </p>
+          </button>
+        </div>
+      </div>
+
+
+        
+       
+    
+  
+
+  <div class="gameArea">
   <div class="row">
     <div class="large-12 columns">
       <div class="row">
@@ -42,44 +84,6 @@
     </div>
   </div>
   <br>
-
-  <div class="row">
-      <div class="large-12 columns">
-        <div class="row">
-          <div class="large-12 columns">
-            <div class="panel radius">
-              <div class="row">
-                <div class="large-6 small-6 columns">
-                  <h4>Leaderboard</h4>
-                  <hr>
-                  <ol>
-                    <li>Steve White</li>
-                    <li>Evelyn James</li>
-                    <li>Noah John</li>
-                    <li>Ava Williams</li>
-                    <li>Michael James</li>
-                    <li>Emma Richards</li>
-                    <li>Charles Mason</li>
-                    <li>Thomas Mason</li>
-                    <li>Olivia Taylor</li>
-                    <li>Joseph Michaels</li>
-                  </ol>
-                </div>
-                <div class="large-6 small-6 columns">
-                    <p>Instructions: <br> Suspendisse ultrices ornare tempor. Aenean eget ultricies libero. Phasellus non ipsum eros. Vivamus
-                    at dignissim massa. Aenean dolor libero, blandit quis interdum et, malesuada nec ligula. Nullam erat
-                    erat, eleifend sed pulvinar ac. Suspendisse ultrices ornare tempor. Aenean eget ultricies libero.</p>
-
-                    <p>Suspendisse ultrices ornare tempor. Aenean eget ultricies libero. Phasellus non ipsum eros. Vivamus
-                    at dignissim massa. Aenean dolor libero, blandit quis interdum et, malesuada nec ligula. Nullam erat
-                    erat, eleifend sed pulvinar ac. Suspendisse ultrices ornare tempor. Aenean eget ultricies libero.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
 
   <div class="row">
     <div class="large-12 columns">
@@ -150,6 +154,37 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="large-3 columns"></div>
+      <div class="large-6 columns">
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="panel radius">
+              <div class="row">
+                <div class="large-6 small-6 columns">
+                  <h4>Leaderboard</h4>
+                  <hr>
+                  <ol>
+                    <li>Steve White</li>
+                    <li>Evelyn James</li>
+                    <li>Noah John</li>
+                    <li>Ava Williams</li>
+                    <li>Michael James</li>
+                    <li>Emma Richards</li>
+                    <li>Charles Mason</li>
+                    <li>Thomas Mason</li>
+                    <li>Olivia Taylor</li>
+                    <li>Joseph Michaels</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="large-3 columns"></div>
+  </div>
+
   <footer class="row">
     <div class="large-12 columns">
     <hr>
@@ -160,11 +195,15 @@
         <div class="large-6 columns"></div>
       </div>
     </div>
+  </div>
   </footer>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
   <script>
         $(document).foundation();
   </script>
+
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
+
 </body>
 </html>
