@@ -4,8 +4,6 @@ body{
     z-index: -1;
 }
 
-
-
 .navbar{
     width: 100%;
     height: 80px;
@@ -22,9 +20,13 @@ body{
     padding: 15px 0 15px 20px;
 }
 
+.polls{
+    background: white;
+    opacity: .7;
+}
+
 .card-section{
     background: white;
-    opacity:
 }
 
 .buy-sell-buttons{
