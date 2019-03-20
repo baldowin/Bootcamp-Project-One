@@ -42,6 +42,6 @@ $.ajax({
         lows:low,
         opens:open,
         closes:close,
-        articles:response.articles;
+        articles:response.articles
     }
 })
