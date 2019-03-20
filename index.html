@@ -8,6 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Risky Business</title>
 
+<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&effect=font-effect-grass" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
 <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
@@ -16,6 +20,64 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 </head>
 <body>
+  <div class="entryForm">
+    <div class="row">
+        <div class="large-12 columns">
+          <nav class="top-bar" data-topbar>
+            <section>
+              <ul class="title-area">
+                <li class="name">
+                  <h1><a href="#">Ri$ky Bu$iness</a></h1>
+                </li>
+                <li class="toggle-topbar menu-icon">
+                  <a href="#"><span>menu</span></a>
+                </li>
+              </ul>
+            </section>
+          </nav>
+          <div class="row" style="background-color: beige">
+              <div class="large-6 small-6 columns">
+                  <p>Welcome to Ri$ky Bu$iness! Please enter your name and email address to begin</p>
+              </div>
+            <form>
+              <div class="large-6 small-6 columns">
+                <label>Full Name
+                  <input type="text" placeholder="Enter Full Name"/>
+                </label>
+                <label>Email Address
+                  <input type="text" placeholder="Enter email address"/>
+                </label>
+                  <div id="button">
+                      <button id="submitInfo">Submit Info</button>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!--Instructions-->
+      <div class="gameInstructions">
+        <div id=startGameButton>
+          <button id="instructions">
+            <p>Welcome day trader! You will be given a randomized stock from any point in history. The graph of how this stock performed
+              will be diplayed in real time. You will be given $100,000 and the opportunity to "Buy" and "Sell".
+            </p>
+            <br>
+            <p>$$$ Click to begin! $$$</p>
+          </button>
+        </div>
+      </div>
+
+
+        
+       
+    
+  
+
+<div class="gameArea">
+  <div class="row">
  <div class="container">
   <nav class="navbar">
     <div class="row">
@@ -187,6 +249,37 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="large-3 columns"></div>
+      <div class="large-6 columns">
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="panel radius">
+              <div class="row">
+                <div class="large-6 small-6 columns">
+                  <h4>Leaderboard</h4>
+                  <hr>
+                  <ol>
+                    <li>Steve White</li>
+                    <li>Evelyn James</li>
+                    <li>Noah John</li>
+                    <li>Ava Williams</li>
+                    <li>Michael James</li>
+                    <li>Emma Richards</li>
+                    <li>Charles Mason</li>
+                    <li>Thomas Mason</li>
+                    <li>Olivia Taylor</li>
+                    <li>Joseph Michaels</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="large-3 columns"></div>
+  </div>
+
   <footer class="row">
     <div class="large-12 columns">
     <hr>
@@ -197,12 +290,16 @@
         <div class="large-6 columns"></div>
       </div>
     </div>
+  </div>
   </footer>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
   <script>
         $(document).foundation();
   </script>
+
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
+
 </div> 
 </body>
 </html>
