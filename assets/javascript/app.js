@@ -1,32 +1,49 @@
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAArjUrbj3qORhaQ4TjdJ3tDnqBYoCoICo",
+    authDomain: "risky-business-ef812.firebaseapp.com",
+    databaseURL: "https://risky-business-ef812.firebaseio.com",
+    projectId: "risky-business-ef812",
+    storageBucket: "risky-business-ef812.appspot.com",
+    messagingSenderId: "1062545813692"
+  };
+  firebase.initializeApp(config);
+
+var database=firebase.database;
+
 var stocks =["aapl",];
 var api="FP8BK7QFX0CXDD9P";
 var obj; 
 var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var startingIndex;//index of the 
-$(document).ready(function(){
-
-window.onload = function(){
-     $(".gameArea").hide(); //hide game. Email info will show.
-     $("#beginGame").hide();
-     $(".gameInstructions").hide();
-     $(".entryForm").show();
-     $("#submitInfo").on("click", instructions) //user clicks Submit
-};
-
-
-function instructions(){
-    $(".entryForm").hide();
-    $(".gameInstructions").show();
-
-};
-
+$(document).ready(function(){    
+    window.onload = function(){
+    $(".gameArea").hide(); //hide game. Email info will show
+    $(".gameInstructions").hide();
+    $(".entryForm").show();
+    $("#submitInfo").on("click", function(event){
+        event.preventDefault();
+        instructions()
+    }); //user clicks Submit
     $("#instructions").on("click", beginGame)
 
-function beginGame(){
-    $(".gameInstructions").hide();
-    $(".gameArea").show();
-};
+    };
+
+    function instructions(){
+        $(".entryForm").hide();
+        $(".gameInstructions").show();
+        console.log("B")
+    };
+    
+    function beginGame(){
+        $(".gameInstructions").hide();
+        $(".gameArea").show();
+        console.log("C")
+    };
+    
 });
+
 ajax();
 function getDay(){
     startingIndex=Math.floor(Math.random()*(obj.startofDayIndex.length-1)+1);
