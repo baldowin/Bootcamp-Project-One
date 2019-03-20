@@ -85,6 +85,7 @@ $.ajax({
             closes:close,
         }
         articleGet(stock,getDay());
+        plotDay();
     })
 }
 function articleGet(stock,articleDate){//gets array of articles from the day about the stock
@@ -100,7 +101,7 @@ function articleGet(stock,articleDate){//gets array of articles from the day abo
 function plotDay(){
     n1 = obj.startofDayIndex[startingIndex-1]+1;
     n2 = obj.startofDayIndex[startingIndex];
-  
+    console.log(n1)
   var trace1 = {
     x: obj.timeArr.slice(n1,n2),
     open: obj.opens.slice(n1,n2) , 
@@ -116,7 +117,7 @@ function plotDay(){
       xaxis: 'x', 
       yaxis: 'y'
     };
-    
+    console.log(trace1);
     var data = [trace1];
     var layout = {
       dragmode: 'zoom', 
