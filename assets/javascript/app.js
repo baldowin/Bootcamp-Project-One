@@ -4,57 +4,22 @@ var obj;
 var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var startingIndex;//index of the 
 $(document).ready(function(){
-    
-    
-    
-    window.onload = function(){
-    $(".gameArea").hide(); //hide game. Email info will show
-    $(".gameInstructions").hide();
-    $(".entryForm").show();
-    $("#submitInfo").on("click", function(event){
-        event.preventDefault();
-        instructions()
-    }); //user clicks Submit
-    $("#instructions").on("click", beginGame)
 
-    };
+window.onload = function(){
+     $(".gameArea").hide(); //hide game. Email info will show.
+     $("#beginGame").hide();
+     $(".gameInstructions").hide();
+     $(".entryForm").show();
+     $("#submitInfo").on("click", instructions) //user clicks Submit
+};
 
 
+function instructions(){
+    $(".entryForm").hide();
+    $(".gameInstructions").show();
 
+};
 
-    
-
-    
-    
-    function instructions(){
-        $(".entryForm").hide();
-        $(".gameInstructions").show();
-        console.log("B")
-    };
-    
-    
-    
-    function beginGame(){
-        $(".gameInstructions").hide();
-        $(".gameArea").show();
-        console.log("C")
-    };
-    
-});
-
-
-var stock="aapl";
-var api="FP8BK7QFX0CXDD9P";
-var open=[];
-var close=[];
-var high=[];
-var low=[];
-var date=[];
-var indexes=[];
-var i=0;
-var obj; 
-var napi="7ba42f39aff0466dae6b8019f2feebf5";
-var articleDate="2019-02-20";
     $("#instructions").on("click", beginGame)
 
 function beginGame(){
