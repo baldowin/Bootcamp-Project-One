@@ -7,22 +7,42 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Risky Business</title>
-
-<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&effect=font-effect-grass" rel="stylesheet">
-
+<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
 <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&effect=font-effect-grass" rel="stylesheet"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 </head>
+
+
 <body>
-  <div class="entryForm">
-    <div class="row">
-        <div class="large-12 columns">
+
+    <nav class="navbar">
+        <div class="row">
+          <div class="large-12 columns">
+            <nav class="top-bar" data-topbar>
+              <section>
+                <ul class="title-area">
+                  <li class="name">
+                    <h1 id="header-title"><a href="#">Ri$ky Bu$iness</a></h1>
+                  </li>
+                  <li class="toggle-topbar menu-icon">
+                    <a href="#"><span>menu</span></a>
+                  </li>
+                </ul>
+              </section>
+            </nav>
+          </div>
+        </div>
+      </nav>
+
+
+  
+    <!-- <div class="row">
+      <div class="large-12 columns">
           <nav class="top-bar" data-topbar>
             <section>
               <ul class="title-area">
@@ -35,27 +55,34 @@
               </ul>
             </section>
           </nav>
-          <div class="row" style="background-color: beige">
-              <div class="large-6 small-6 columns">
-                  <p>Welcome to Ri$ky Bu$iness! Please enter your name and email address to begin</p>
-              </div>
-            <form>
-              <div class="large-6 small-6 columns">
-                <label>Full Name
-                  <input type="text" placeholder="Enter Full Name"/>
-                </label>
-                <label>Email Address
-                  <input type="text" placeholder="Enter email address"/>
-                </label>
-                  <div id="button">
-                      <button id="submitInfo">Submit Info</button>
-                  </div>
-              </div>
-            </form>
+      </div>
+    </div> -->
+
+
+    <div class="entryForm">
+      <div class="row" style="background-color: beige">
+          <div class="large-1 small-1 columns"><img></div>
+          <div class="large-5 small-4 columns">
+              <p>Welcome to Ri$ky Bu$iness! Please enter your name and email address to begin</p>
           </div>
-        </div>
+        <form>
+          <div class="large-5 small-4 columns">
+            <label>Full Name
+              <input type="text" placeholder="Enter Full Name"/>
+            </label>
+            <label>Email Address
+              <input type="text" placeholder="Enter email address"/>
+            </label>
+            <div id="button">
+                <button id="submitInfo">Submit Info</button>
+            </div>
+          </div>
+        </form>
+        <div class="large-1 small-1 columns"><img></div>
       </div>
     </div>
+    
+  
 
       <!--Instructions-->
       <div class="gameInstructions">
@@ -79,24 +106,7 @@
 <div class="gameArea">
   <div class="row">
  <div class="container">
-  <nav class="navbar">
-    <div class="row">
-      <div class="large-12 columns">
-        <nav class="top-bar" data-topbar>
-          <section>
-            <ul class="title-area">
-              <li class="name">
-                <h1 id="header-title"><a href="#">Ri$ky Bu$iness</a></h1>
-              </li>
-              <li class="toggle-topbar menu-icon">
-                <a href="#"><span>menu</span></a>
-              </li>
-            </ul>
-          </section>
-        </nav>
-      </div>
-    </div>
-  </nav>
+  
   <!-- <div class="row">
     <div class="large-12 columns">
       <div class="row">
@@ -108,46 +118,8 @@
   </div> -->
   <br>
 
-  <div class="row">
-      <div class="large-12 columns">
-        <div class="row">
-          <div class="large-12 columns">
-            <div class="panel radius">
-              <div class="row">
-                <div class="large-6 small-6 columns">
-                  <h4>Leaderboard</h4>
-                  <hr>
-                  <ol>
-                    <li>Steve White</li>
-                    <li>Evelyn James</li>
-                    <li>Noah John</li>
-                    <li>Ava Williams</li>
-                    <li>Michael James</li>
-                    <li>Emma Richards</li>
-                    <li>Charles Mason</li>
-                    <li>Thomas Mason</li>
-                    <li>Olivia Taylor</li>
-                    <li>Joseph Michaels</li>
-                  </ol>
-                </div>
-                <div class="large-6 small-6 columns">
-                    <p>Instructions: <br> Suspendisse ultrices ornare tempor. Aenean eget ultricies libero. Phasellus non ipsum eros. Vivamus
-                    at dignissim massa. Aenean dolor libero, blandit quis interdum et, malesuada nec ligula. Nullam erat
-                    erat, eleifend sed pulvinar ac. Suspendisse ultrices ornare tempor. Aenean eget ultricies libero.</p>
-
-                    <p>Suspendisse ultrices ornare tempor. Aenean eget ultricies libero. Phasellus non ipsum eros. Vivamus
-                    at dignissim massa. Aenean dolor libero, blandit quis interdum et, malesuada nec ligula. Nullam erat
-                    erat, eleifend sed pulvinar ac. Suspendisse ultrices ornare tempor. Aenean eget ultricies libero.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-
   <!-- Radio Buttons -->
-  <div class="row">
+  <!-- <div class="row">
     <div class="large-12 columns">
           <div class="polls">
             <h5 class="polls-question">
@@ -165,21 +137,21 @@
           </div>
           </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="row">
     <div class="large-12 columns">
       <div class="row">
-        <!-- <div class="large-2 small-2 columns"><img></div> -->
-            <div class="large-6 small-6 columns">
+        <div class="large-2 small-2 columns"><img></div>
+            <div class="large-8 small-8 columns">
               <div class="card news-card">
-                <img src="assets/images/screen-shot-1.png">
-                <!-- <div class="buy-sell-buttons">
+                <img id="chartImage" src="assets/images/screen-shot-1.png">
+                <div class="buy-sell-buttons">
                     <input id="short-button" type="submit" class="button graph-button" value="Short">
                     <input id="sell-button" type="submit" class="button graph-button" value="Sell">
                     <input id="buy-button" type="submit" class="button graph-button" value="Buy">
                     <input id="long-button" type="submit" class="button graph-button" value="Long">
-                </div> -->
+                </div>
                   <div class="card-section">
                     <div class="news-card-date">Sunday, 16th April</div>
                     <article class="news-card-article">
@@ -191,11 +163,11 @@
                   </div>
               </div>
             </div>
-        <!-- <div class="large-2 small-2 columns"><img></div> -->
+        <div class="large-2 small-2 columns"><img></div>
       
     
   
-            <div class="large-6 small-6 columns">
+            <!-- <div class="large-6 small-6 columns">
               <div class="card news-card">
                 <img src="assets/images/screen-shot-2.png">
                   <div class="card-section">
@@ -208,13 +180,13 @@
                     </article>
                   </div>
               </div>
-            </div>
+            </div> -->
       </div>
     </div>
   </div>
 
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="large-12 columns">
       <div class="row">
         <div class="large-6 small-6 columns">
@@ -247,37 +219,35 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="row">
-    <div class="large-3 columns"></div>
-      <div class="large-6 columns">
         <div class="row">
           <div class="large-12 columns">
-            <div class="panel radius">
-              <div class="row">
-                <div class="large-6 small-6 columns">
-                  <h4>Leaderboard</h4>
-                  <hr>
-                  <ol>
-                    <li>Steve White</li>
-                    <li>Evelyn James</li>
-                    <li>Noah John</li>
-                    <li>Ava Williams</li>
-                    <li>Michael James</li>
-                    <li>Emma Richards</li>
-                    <li>Charles Mason</li>
-                    <li>Thomas Mason</li>
-                    <li>Olivia Taylor</li>
-                    <li>Joseph Michaels</li>
-                  </ol>
+            <div class="row">
+              <div class="large-4 small-4 columns"><img></div>
+              <div class="large-4 small-4 columns">
+                <div class="panel radius">
+                      <h4>Leaderboard</h4>
+                      <hr>
+                      <ol>
+                        <li>Steve White</li>
+                        <li>Evelyn James</li>
+                        <li>Noah John</li>
+                        <li>Ava Williams</li>
+                        <li>Michael James</li>
+                        <li>Emma Richards</li>
+                        <li>Charles Mason</li>
+                        <li>Thomas Mason</li>
+                        <li>Olivia Taylor</li>
+                        <li>Joseph Michaels</li>
+                      </ol>
                 </div>
               </div>
+              <div class="large-4 small-4 columns"><img></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="large-3 columns"></div>
   </div>
 
   <footer class="row">
@@ -291,6 +261,8 @@
       </div>
     </div>
   </div>
+</div>
+</div>
   </footer>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>

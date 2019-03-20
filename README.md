@@ -1,2 +1,2 @@
 # Bootcamp-Project-One
-Name will be updated to reflect project name
+See how easy it is to lose money day trading
