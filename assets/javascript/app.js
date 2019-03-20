@@ -26,8 +26,8 @@ function beginGame(){
     $(".gameInstructions").hide();
     $(".gameArea").show();
 };
-ajax();
 });
+ajax();
 function getDay(){
     startingIndex=Math.floor(Math.random()*(obj.startofDayIndex.length-1)+1);
     return obj.timeArr[obj.startofDayIndex[startingIndex]].split(" ")[0];
