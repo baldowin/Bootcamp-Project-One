@@ -1,7 +1,13 @@
 /* body{
     background: url(../images/money.jpg)
 }; */
-
+.entryForm{
+    display: block;
+    width: 80%;
+    margin: auto;
+    margin-top: 10%;
+    font-family: 'Roboto Mono', monospace;
+}
 
 #instructions{
     width:50%;
@@ -46,6 +52,10 @@ body{
     background: white;
 }
 
+.news-card-article, .news-card-date{
+    padding: 20px 20px 20px 20px;
+}
+
 .buy-sell-buttons{
     display: flex; 
     justify-content: center;
@@ -61,5 +71,9 @@ body{
 
 .stock-radio{
     margin: 0 25px 0px 5px;
+}
+
+.panel{
+    margin-top: 20px;
 }
 
