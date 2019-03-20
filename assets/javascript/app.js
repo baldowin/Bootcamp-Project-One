@@ -17,8 +17,7 @@ var api="FP8BK7QFX0CXDD9P";
 var obj; 
 var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var startingIndex;//index of the 
-$(document).ready(function(){
-    
+$(document).ready(function(){    
     window.onload = function(){
     $(".gameArea").hide(); //hide game. Email info will show
     $(".gameInstructions").hide();
@@ -44,6 +43,7 @@ $(document).ready(function(){
     };
     
 });
+
 ajax();
 function getDay(){
     startingIndex=Math.floor(Math.random()*(obj.startofDayIndex.length-1)+1);
