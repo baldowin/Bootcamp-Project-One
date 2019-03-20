@@ -12,7 +12,7 @@
 
 var database=firebase.database;
 
-var stocks =["aapl",];
+var stocks = ["aapl","ibm","xom","cvx","pg","mmm","jnj","mcd","wmt","utx","ko","ba","cat","jpm","hpq","vz","t","kft","dd","mrk","dis"];
 var api="FP8BK7QFX0CXDD9P";
 var obj; 
 var napi="7ba42f39aff0466dae6b8019f2feebf5";
@@ -85,6 +85,7 @@ $.ajax({
             closes:close,
         }
         articleGet(stock,getDay());
+        plotDay();
     })
 }
 function articleGet(stock,articleDate){//gets array of articles from the day about the stock
@@ -96,3 +97,50 @@ function articleGet(stock,articleDate){//gets array of articles from the day abo
     console.log(obj);
 })
 }
+
+function plotDay(){
+    n1 = obj.startofDayIndex[startingIndex-1]+1;
+    n2 = obj.startofDayIndex[startingIndex];
+    console.log(n1)
+  var trace1 = {
+    x: obj.timeArr.slice(n1,n2),
+    open: obj.opens.slice(n1,n2) , 
+    close: obj.closes.slice(n1,n2), 
+    high: obj.highs.slice(n1,n2), 
+    low: obj.lows.slice(n1,n2), 
+
+      decreasing: {line: {color: 'red'}}, 
+      increasing: {line: {color: 'green'}}, 
+      line: {color: 'rgba(31,119,180,1)'}, 
+          
+      type: 'candlestick', 
+      xaxis: 'x', 
+      yaxis: 'y'
+    };
+    console.log(trace1);
+    var data = [trace1];
+    var layout = {
+      dragmode: 'zoom', 
+      margin: {
+        r: 10, 
+        t: 25, 
+        b: 40, 
+        l: 60
+      }, 
+      showlegend: false, 
+      xaxis: {
+        autorange: true, 
+        domain: [0, 1], 
+        rangeslider: {visible:false}, 
+        title: 'Date', 
+        type: 'date'
+      }, 
+      yaxis: {
+        autorange: true, 
+        domain: [0, 1], 
+        type: 'linear'
+      }
+    };
+    Plotly.plot('chartImage', data, layout)
+  }  
+ 
