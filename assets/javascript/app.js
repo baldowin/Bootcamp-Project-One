@@ -3,20 +3,22 @@ $(document).ready(function(){
 
 window.onload = function(){
      $(".gameArea").hide(); //hide game. Email info will show.
-     $("#beginGame").hide();
      $(".gameInstructions").hide();
-     $(".entryForm").show();
-     $("#submitInfo").on("click", instructions) //user clicks Submit
+     $(".entryForm").show(); 
+     $("#submitInfo").on("click", function(event){
+         event.preventDefault();
+                 instructions()
+     }) //user clicks Submit
+     $("#instructions").on("click", beginGame)
+     console.log();
 };
 
 
 function instructions(){
-    $(".entryForm").hide();
-    $(".gameInstructions").show();
-
+    $(".entryForm").hide()
+        $(".gameInstructions").show();
 };
 
-    $("#instructions").on("click", beginGame)
 
 function beginGame(){
     $(".gameInstructions").hide();
