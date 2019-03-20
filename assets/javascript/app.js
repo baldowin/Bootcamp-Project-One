@@ -1,29 +1,44 @@
 
 $(document).ready(function(){
-
-window.onload = function(){
-     $(".gameArea").hide(); //hide game. Email info will show.
-     $("#beginGame").hide();
-     $(".gameInstructions").hide();
-     $(".entryForm").show();
-     $("#submitInfo").on("click", instructions) //user clicks Submit
-};
-
-
-function instructions(){
-    $(".entryForm").hide();
-    $(".gameInstructions").show();
-
-};
-
+    
+    
+    
+    window.onload = function(){
+    $(".gameArea").hide(); //hide game. Email info will show
+    $(".gameInstructions").hide();
+    $(".entryForm").show();
+    $("#submitInfo").on("click", function(event){
+        event.preventDefault();
+        instructions()
+    }); //user clicks Submit
     $("#instructions").on("click", beginGame)
 
-function beginGame(){
-    $(".gameInstructions").hide();
-    $(".gameArea").show();
-};
+    };
 
+
+
+
+    
+
+    
+    
+    function instructions(){
+        $(".entryForm").hide();
+        $(".gameInstructions").show();
+        console.log("B")
+    };
+    
+    
+    
+    function beginGame(){
+        $(".gameInstructions").hide();
+        $(".gameArea").show();
+        console.log("C")
+    };
+    
 });
+
+
 var stock="aapl";
 var api="FP8BK7QFX0CXDD9P";
 var open=[];
