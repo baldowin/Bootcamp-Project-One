@@ -1,6 +1,20 @@
 
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAArjUrbj3qORhaQ4TjdJ3tDnqBYoCoICo",
+    authDomain: "risky-business-ef812.firebaseapp.com",
+    databaseURL: "https://risky-business-ef812.firebaseio.com",
+    projectId: "risky-business-ef812",
+    storageBucket: "risky-business-ef812.appspot.com",
+    messagingSenderId: "1062545813692"
+  };
+  firebase.initializeApp(config);
+
+var database=firebase.database;
+
 $(document).ready(function(){
 
+    
 window.onload = function(){
      $(".gameArea").hide(); //hide game. Email info will show.
      $(".gameInstructions").hide();
@@ -26,6 +40,7 @@ function beginGame(){
 };
 
 });
+
 var stock="aapl";
 var api="FP8BK7QFX0CXDD9P";
 var open=[];
