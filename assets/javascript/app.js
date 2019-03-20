@@ -8,6 +8,8 @@ var date=[];
 var indexes=[];
 var i=0;
 var obj; 
+var napi="7ba42f39aff0466dae6b8019f2feebf5";
+var articleDate="2019-02-20";
 $.ajax({
     url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+api,
     method:"GET"
@@ -25,14 +27,21 @@ $.ajax({
         }
         i++;
     });
-    obj={
+    console.log(obj);
+     $.ajax({
+         url:"https://newsapi.org/v2/everything?q="+stock+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi,
+         method:"GET"
+     }).then(function(response){
+         console.log(response);
+     })
+     obj={
         stock:stock,
         startofDayIndex:indexes,
         timeArr:date,
         highs:high,
         lows:low,
         opens:open,
-        closes:close
+        closes:close,
+        articles:response.articles
     }
-    console.log(obj);
 })
