@@ -27,20 +27,21 @@ $.ajax({
         }
         i++;
     });
-    obj={
-        stock:stock,
-        startofDayIndex:indexes,
-        timeArr:date,
-        highs:high,
-        lows:low,
-        opens:open,
-        closes:close
-    }
     console.log(obj);
-})
      $.ajax({
          url:"https://newsapi.org/v2/everything?q="+stock+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi,
          method:"GET"
      }).then(function(response){
          console.log(response);
      })
+     obj={
+        stock:stock,
+        startofDayIndex:indexes,
+        timeArr:date,
+        highs:high,
+        lows:low,
+        opens:open,
+        closes:close,
+        articles:response.articles;
+    }
+})
