@@ -1,7 +1,13 @@
 /* body{
     background: url(../images/money.jpg)
 }; */
-
+.entryForm{
+    display: block;
+    width: 80%;
+    margin: auto;
+    margin-top: 10%;
+    font-family: 'Roboto Mono', monospace;
+}
 
 #instructions{
     width:50%;
@@ -21,8 +27,6 @@ body{
     z-index: -1;
 }
 
-
-
 .navbar{
     width: 100%;
     height: 80px;
@@ -39,9 +43,17 @@ body{
     padding: 15px 0 15px 20px;
 }
 
+.polls{
+    background: white;
+    opacity: .7;
+}
+
 .card-section{
     background: white;
-    /* opacity: */
+}
+
+.news-card-article, .news-card-date{
+    padding: 20px 20px 20px 20px;
 }
 
 .buy-sell-buttons{
@@ -59,5 +71,9 @@ body{
 
 .stock-radio{
     margin: 0 25px 0px 5px;
+}
+
+.panel{
+    margin-top: 20px;
 }
 
