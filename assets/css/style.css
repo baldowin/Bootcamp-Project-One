@@ -1,0 +1,17 @@
+/* body{
+    background: url(../images/money.jpg)
+}; */
+
+
+#instructions{
+    width:50%;
+    height:400px;
+    margin:25%;
+    font-family: 'Roboto Mono', monospace;
+    margin-top:10%;
+};
+
+
+#startGameButton{
+    height:20px;
+}

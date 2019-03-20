@@ -12,6 +12,7 @@ window.onload = function(){
 function instructions(){
     $(".entryForm").hide();
     $(".gameInstructions").show();
+
 };
 
     $("#instructions").on("click", beginGame)
@@ -19,8 +20,6 @@ function instructions(){
 function beginGame(){
     $(".gameInstructions").hide();
     $(".gameArea").show();
-
-
 };
 
 });
