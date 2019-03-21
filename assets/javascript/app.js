@@ -211,13 +211,13 @@ $("#sell-button").on("click", function() {
         //The user sold all his stock, he is fully divested, the money he has is equal to his orignal userCash at the beginning of the round
         //userCash = userCash
         if (modifier > 0){
-            $("#messagesToUser").text("You missed out on " + userCash*modifier + " dollars, idiot! You have "+userCash+" dollars.");
+            $("#messagesToUser").text("You missed out on " + (userCash*modifier).toFixed(2) + " dollars, idiot! You have " + userCash.toFixed(2) + " dollars.");
         }
         else if (modifier === 0){
-            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have " + userCash.toFixed(2) + " dollars.");
         }
         else if (modifier < 0){
-            $("#messagesToUser").text("You dodged a bullet this time, you could have lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
+            $("#messagesToUser").text("You dodged a bullet this time, you could have lost" + (Math.abs(userCash*modifier)).toFixed(2) +" dollars! You have " + userCash.toFixed(2) + " dollars.")
         }
    
         //wait for a couple of seconds and then start a new round
@@ -236,13 +236,13 @@ $("#buy-button").on("click", function() {
         userCash = userCash + userCash*modifier;
         
         if (modifier > 0){
-            $("#messagesToUser").text("Good job, you made " + userCash*modifier + " dollars! You have "+userCash+" dollars.");
+            $("#messagesToUser").text("Good job, you made " + (userCash*modifier).toFixed(2) + " dollars! You have " + userCash.toFixed(2) + " dollars.");
         }
         else if (modifier === 0){
-            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have " + userCash.toFixed(2) + " dollars.");
         }
         else if (modifier < 0){
-            $("#messagesToUser").text("How could you be so stupid? You lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
+            $("#messagesToUser").text("How could you be so stupid? You lost" + (Math.abs(userCash*modifier)).toFixed(2) + " dollars! You have " + userCash.toFixed(2) + " dollars.")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
@@ -260,13 +260,13 @@ $("#hold-button").on("click", function() {
         userCash = 0.5*userCash + 0.5*userCash*modifier;
         
         if (modifier > 0){
-            $("#messagesToUser").text("You missed out on " + 0.5*userCash*modifier + " dollars, idiot! You have "+userCash+" dollars.");
+            $("#messagesToUser").text("You missed out on " + (0.5*userCash*modifier).toFixed(2) + " dollars, idiot! You have " + userCash.toFixed(2) + " dollars.");
         }
         else if (modifier === 0){
-            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have " + userCash.toFixed(2) + " dollars.");
         }
         else if (modifier < 0){
-            $("#messagesToUser").text("How could you be so stupid? You lost" + 0.5*userCash*modifier +" dollars! You have "+userCash+" dollars.")
+            $("#messagesToUser").text("How could you be so stupid? You lost" + (Math.abs(0.5*userCash*modifier)).toFixed(2) +" dollars! You have " + userCash.toFixed(2) + " dollars.")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
