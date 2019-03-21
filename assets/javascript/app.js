@@ -36,7 +36,8 @@ $(document).ready(function(){
     $(".gameArea").hide(); //hide game. Email info will show
     $(".gameInstructions").hide();
     $(".entryForm").show();
-    $("#submitInfo").on("click", function(event){
+    // $("#submitInfo").on("click", function(event){
+    $("input[type='submit']").on("click", function(event){
         event.preventDefault();
         instructions()
     }); //user clicks Submit

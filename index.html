@@ -47,15 +47,14 @@
       </div>
       <form>
         <div class="large-5 small-4 columns">
-          <label>Full Name
-            <input type="text" placeholder="Enter Full Name"/>
+          <label>User Name
+            <!-- <br> -->
+            <input type="text" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name">
           </label>
           <label>Email Address
-            <input type="text" placeholder="Enter email address"/>
+            <input type="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Enter email address">
           </label>
-          <div id="button">
-              <button id="submitInfo">Submit Info</button>
-          </div>
+            <input type="submit">
         </div>
       </form>
       <div class="large-1 small-1 columns"><img></div>
@@ -66,8 +65,12 @@
   <div class="gameInstructions">
     <div id=startGameButton>
       <button id="instructions">
-        <p>Welcome day trader! You will be given a randomized stock from any point in history. The graph of how this stock performed
-          will be diplayed in real time. You will be given $100,000 and the opportunity to "Buy" and "Sell".
+        <p>Welcome day trader!</p>
+        <br>
+        <p>You will be given a randomized stock from any point in history. The graph of how this stock performed
+          in actualhistory will be diplayed in real time, along with a headline relating to that stock.</p> 
+          <br>
+          <p>You will be given $1,000,000 and the opportunity to "Buy", "Sell" or "Hold". Good luck!
         </p>
         <br>
         <p>$$$ Click to begin! $$$</p>
