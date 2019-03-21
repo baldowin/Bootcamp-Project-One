@@ -113,16 +113,14 @@ $.ajax({
         plotDay();
     })
 }
-function articleGet(stock,articleDate){//gets array of articles from the day about the stock
+function articleGet(stock,articleDate){//gets array of articles from the day about the stock sorted by relevance
      $.ajax({
-         url:"https://newsapi.org/v2/everything?q="+stock+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi,
+         url:"https://newsapi.org/v2/everything?q="+stock+"&sortBy=relevency"+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi,
          method:"GET"
      }).then(function(response){   
      obj.articles=response.articles;
-     //titlepick to randomly select and index from the list of 
-     titlePick =Math.floor(Math.random()*(obj.articles.length));
-     //set the title of the article to be displayed
-     var newTitle = obj.articles[titlePick].title;
+     //set the title of the article to be displayed to the most relevent article
+     var newTitle = obj.articles[0].title;
      $("#newTitle").text(newTitle);
     console.log(obj);
 })
