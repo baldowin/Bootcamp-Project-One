@@ -51,7 +51,7 @@ $(document).ready(function(){
         logInfo()
         $(".entryForm").hide();
         $(".gameInstructions").show();
-        // event.preventDefault();
+        event.preventDefault();
         //console.log("B")
     };
     
@@ -60,6 +60,8 @@ $(document).ready(function(){
         // event.preventDefault();
         $(".gameArea").show();
         //console.log("C")
+        // event.preventDefault();
+
     };
     
 });
