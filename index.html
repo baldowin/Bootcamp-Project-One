@@ -52,10 +52,10 @@
             <!-- <input type="text" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"> --> -->
         <div class="large-5 small-5 columns">
           <label>User Name
-            <input type="text" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"/>
+            <input type="text" id="username" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"/>
           </label>
           <label>Email Address
-            <input type="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Enter email address">
+            <input type="email" id="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Enter email address">
           </label>
             <input type="submit">
         </div>
@@ -118,7 +118,7 @@
                 <div class="panel radius leaderboard">
                       <h4>Leaderboard</h4>
                       <hr>
-                      <ol>
+                      <ol id=leaderboard>
                         <li>Steve White</li>
                         <li>Evelyn James</li>
                         <li>Noah John</li>
