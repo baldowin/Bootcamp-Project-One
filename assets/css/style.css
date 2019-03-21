@@ -72,12 +72,13 @@ body{
     justify-content: center;
 }
 
-/* .graph-button{
-    margin: 10px 20px 20px 20px;
-} */
+.graph-button{
+    margin: 10px 5px 20px 5px;
+}
 
-.svg-container{
+.plot-container{
     width: 100%;
+    max-width: 550px;
 }
 
 .polls-options{
@@ -95,14 +96,17 @@ body{
 
 .leaderboard{
     text-align: center;
+    max-width: 350px;
+    margin: auto;
+    margin-top: 20px;
 }
 
 .footer{
-    width: 100%;
     background-color: gray;
     opacity: .9;
     padding-top: 20px;
     position: relative;
     bottom: 0;
+    width: auto;
 }
 
