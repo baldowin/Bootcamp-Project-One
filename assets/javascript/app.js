@@ -317,8 +317,14 @@ database.ref().on("value",function(snapshot){
     console.log(snapshot);
     snapshot.forEach(function(user){//get users from firebase
         console.log(user);
+        if (user.child("username").val()===null){
+        }
         var name = user.child("username").val();
         var cash = user.child("cash").val();
+        if (name===null){
+            name="start";
+            cash=1000000;
+        }
         leaders.push({name:name,cash:cash});
     })
     function swap(x,y){
