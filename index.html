@@ -46,16 +46,18 @@
           <p>Welcome to Ri$ky Bu$iness!<br><hr>Please enter your name and email address to begin.</p>
       </div>
       <form>
+        <!-- <div class="large-5 small-4 columns">
+          <label>User Name
+            <!-- <br> -->
+            <!-- <input type="text" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"> --> -->
         <div class="large-5 small-5 columns">
-          <label>Full Name
-            <input type="text" placeholder="Enter Full Name"/>
+          <label>User Name
+            <input type="text" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"/>
           </label>
           <label>Email Address
-            <input type="text" placeholder="Enter email address"/>
+            <input type="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Enter email address">
           </label>
-          <div id="button">
-              <button id="submitInfo">Submit Info</button>
-          </div>
+            <input type="submit">
         </div>
       </form>
       <div class="large-1 small-1 columns"><img></div>
