@@ -30,7 +30,8 @@ var userCash = 1000000;
 //The user could keep hitting buttons until the next round
 var alreadyChoseFlag = false;
 
-var napi="7ba42f39aff0466dae6b8019f2feebf5";
+//var napi="7ba42f39aff0466dae6b8019f2feebf5";
+var napi="78528141bbbb4859a1043d285a0e2603";
 var startingIndex;//index of the 
 $(document).ready(function(){    
     window.onload = function(){
@@ -306,7 +307,7 @@ $("#hold-button").on("click", function() {
         setTimeout(nextRound(), 2000);
     }
 });
-database.ref().on("child_changed",function(snapshot){
+/*database.ref().on("child_changed",function(snapshot){
     var leaders=[]
     $("#leaderboard").empty()
     console.log(snapshot);
@@ -344,4 +345,4 @@ database.ref().on("child_changed",function(snapshot){
         leader.text(element.name);
         $("#leaderboard").prepend(leader);
     })
-})
+})*/
