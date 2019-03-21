@@ -307,13 +307,13 @@ $("#hold-button").on("click", function() {
         setTimeout(nextRound(), 2000);
     }
 });
-/*database.ref().on("child_changed",function(snapshot){
+database.ref().on("value",function(snapshot){
     var leaders=[]
     $("#leaderboard").empty()
     console.log(snapshot);
-    $.each(snapshot,function(user){//get users from firebase
+    snapshot.forEach(function(user){//get users from firebase
         console.log(user);
-        var name = user.val();
+        var name = user.child("username").val();
         var cash = user.child("cash").val();
         leaders.push({name:name,cash:cash});
     })
@@ -328,7 +328,7 @@ $("#hold-button").on("click", function() {
         var less = i;
         if(i>last) last=leaders.length;
         for (var j =i+1;j<last;j++){
-            if (pivot>leader[j].cash){
+            if (pivot>leaders[j].cash){
                 less++;
                 if(less!=j){
                     swap(j,less);
@@ -342,7 +342,7 @@ $("#hold-button").on("click", function() {
     }
     leaders.forEach(function(element){//add users to leaderboard
         var leader = $("<li>");
-        leader.text(element.name);
+        leader.text(element.name+": "+element.cash);
         $("#leaderboard").prepend(leader);
     })
-})*/
+})
