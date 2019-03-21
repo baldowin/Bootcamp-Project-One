@@ -62,6 +62,7 @@ $(document).ready(function(){
 //new information
 function nextRound(){
     alreadyChoseFlag = false;
+    obj = [];
     ajax();
 }
 ajax();
@@ -83,6 +84,9 @@ $.ajax({
         var high=[];
         var low=[];
         var date=[];
+
+        //GEtting this error "Uncaught TypeError: Cannot read property 'length' of undefined"
+        //I think the error is where it isn't getting information back for a query
         $.each(response["Time Series (5min)"],function(day){//create arrays with stock info
             var x = dates[day]
             date.push(day);
@@ -193,7 +197,8 @@ function plotDay(){
         type: 'linear'
       }
     };
-    Plotly.plot('chartImage', data, layout)
+
+    Plotly.newPlot('chartImage', data, layout)
   }  
 
 
@@ -216,8 +221,9 @@ $("#sell-button").on("click", function() {
         else if (modifier < 0){
             $("#messagesToUser").text("You dodged a bullet this time, you could have lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
         }
-        console.log(userCash);
+   
         //wait for a couple of seconds and then start a new round
+       // $("#chartImage").empty();
         setTimeout(nextRound(), 2000);
     }
 });
@@ -240,8 +246,9 @@ $("#buy-button").on("click", function() {
         else if (modifier < 0){
             $("#messagesToUser").text("How could you be so stupid? You lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
         }
-        console.log(userCash);
+        //console.log(userCash);
         //wait for a couple of seconds and then start a new round
+       // $("#chartImage").empty();
         setTimeout(nextRound(), 2000);
     }
 });
@@ -263,8 +270,9 @@ $("#hold-button").on("click", function() {
         else if (modifier < 0){
             $("#messagesToUser").text("How could you be so stupid? You lost" + 0.5*userCash*modifier +" dollars! You have "+userCash+" dollars.")
         }
-        console.log(userCash);
-        //wait for a couple of seconds and then start a new round
+        //console.log(userCash);
+        //wait for a couple of seconds and then start a new 
+       // $("#chartImage").empty();
         setTimeout(nextRound(), 2000);
     }
 });
