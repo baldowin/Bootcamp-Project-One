@@ -48,13 +48,13 @@ $(document).ready(function(){
     function instructions(){
         $(".entryForm").hide();
         $(".gameInstructions").show();
-        console.log("B")
+        //console.log("B")
     };
     
     function beginGame(){
         $(".gameInstructions").hide();
         $(".gameArea").show();
-        console.log("C")
+        //console.log("C")
     };
     
 });
@@ -77,7 +77,8 @@ $.ajax({
         url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+api,
         method:"GET"
     }).then(function(response){
-        var dates =response["Time Series (5min)"]
+        var dates = response["Time Series (5min)"]
+        console.log(dates);
         var i=0;
         var indexes=[-1];
         var open=[];
@@ -123,7 +124,7 @@ function articleGet(stock,articleDate){//gets array of articles from the day abo
      //set the title of the article to be displayed to the most relevent article
      var newTitle = obj.articles[0].title;
      $("#newTitle").text(newTitle);
-    console.log(obj);
+    console.log("obj: " + obj);
 })
 }
 
@@ -132,16 +133,16 @@ function articleGet(stock,articleDate){//gets array of articles from the day abo
 function setAnswer() {
     //The close at the index of endCloseIndex is the answer for the day
     endCloseIndex = obj.startofDayIndex[startingIndex-1]+1;
-    console.log("EndCloseIndex: " + endCloseIndex);
+    //console.log("EndCloseIndex: " + endCloseIndex);
     chooseCloseIndex = obj.startofDayIndex[startingIndex-1]+21
-    console.log("chooseCloseIndex: " + chooseCloseIndex);
+    //console.log("chooseCloseIndex: " + chooseCloseIndex);
     var close1 = obj.closes[endCloseIndex];
-    console.log("close1" + close1);
+    //console.log("close1 " + close1);
     var close2 = obj.closes[chooseCloseIndex];
-    console.log("close2" + close2);
+    //console.log("close2 " + close2);
     //the modifier is the percentage change  in price from the time the user chooses to the end of the day
     modifier = (close1-close2)/close1;
-    console.log("Modifier: "+ modifier);
+    //console.log("Modifier: "+ modifier);
 
 }
 
@@ -153,9 +154,9 @@ function plotDay(){
     //The information is stored in 5 minutes increments.  If we advance the n1 index by 40 
     //it will cut off the last two hours of the day
     n1 = obj.startofDayIndex[startingIndex-1]+21;
-    console.log("n1:" + n1);
+    //console.log("n1:" + n1);
     n2 = obj.startofDayIndex[startingIndex];
-    console.log("n2:" + n2);
+    //console.log("n2:" + n2);
 
   var trace1 = {
     x: obj.timeArr.slice(n1,n2),
@@ -172,7 +173,7 @@ function plotDay(){
       xaxis: 'x', 
       yaxis: 'y'
     };
-    console.log(trace1);
+    console.log("trace1:" + trace1);
     var data = [trace1];
     var layout = {
       dragmode: 'zoom', 
@@ -208,17 +209,18 @@ $("#sell-button").on("click", function() {
     if (alreadyChoseFlag === false){
                 alreadyChoseFlag = true;
         //var action = $(this).attr("value");
-    // alert("Action: " + action);
+        // alert("Action: " + action);
         //The user sold all his stock, he is fully divested, the money he has is equal to his orignal userCash at the beginning of the round
         //userCash = userCash
+        var gainz = userCash*modifier;
         if (modifier > 0){
-            $("#messagesToUser").text("You missed out on " + userCash*modifier + " dollars, idiot! You have "+userCash+" dollars.");
+            $("#messagesToUser").text("You missed out on " + gainz.toFixed(2) + " dollars, idiot! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
-            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
-            $("#messagesToUser").text("You dodged a bullet this time, you could have lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
+            $("#messagesToUser").text("You dodged a bullet this time, you could have lost $" + (Math.abs(gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
         }
    
         //wait for a couple of seconds and then start a new round
@@ -234,16 +236,17 @@ $("#buy-button").on("click", function() {
         //var action = $(this).attr("value");
         //alert("Action: " + action);
         //if the modifier is negative, it will subtract a percentage of the usercash. Positive will add to the usercash
-        userCash = userCash + userCash*modifier;
+        var gainz = userCash*modifier;
+        userCash = userCash + gainz;
         
         if (modifier > 0){
-            $("#messagesToUser").text("Good job, you made " + userCash*modifier + " dollars! You have "+userCash+" dollars.");
+            $("#messagesToUser").text("Good job, you made $" + gainz.toFixed(2) + "! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
-            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
-            $("#messagesToUser").text("How could you be so stupid? You lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
+            $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(gainz)).toFixed(2) + "! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
@@ -258,16 +261,17 @@ $("#hold-button").on("click", function() {
         alreadyChoseFlag = true;
         // if the user holds, then he keeps half in cash and the other half stays invested.
         //I have decided that you should be berated for whatever decision you make.
-        userCash = 0.5*userCash + 0.5*userCash*modifier;
+        var gainz = userCash*modifier;
+        userCash = 0.5*userCash + 0.5*gainz;
         
         if (modifier > 0){
-            $("#messagesToUser").text("You missed out on " + 0.5*userCash*modifier + " dollars, idiot! You have "+userCash+" dollars.");
+            $("#messagesToUser").text("You missed out on $" + (0.5*gainz).toFixed(2) + ", idiot! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
-            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
-            $("#messagesToUser").text("How could you be so stupid? You lost" + 0.5*userCash*modifier +" dollars! You have "+userCash+" dollars.")
+            $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(0.5*gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
