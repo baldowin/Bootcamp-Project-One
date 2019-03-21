@@ -12,7 +12,7 @@
 
 var database=firebase.database;
 
-var stocks = ["aapl","ibm","xom","cvx","pg","mmm","jnj","mcd","wmt","utx","ko","ba","cat","jpm","hpq","vz","t","kft","dd","mrk","dis"];
+var stocks = ["aapl","ibm","xom","cvx","pg","mmm","jnj","mcd","wmt","utx","ko","ba","cat","jpm","hpq","vz","t","kft","dd","mrk","dis","hd","msft","axp","bac","pfe","ge","intc","aa","c","gm"];
 var api="FP8BK7QFX0CXDD9P";
 var obj; 
 
@@ -25,6 +25,9 @@ var modifier;
 //User cash is the money that the user has during the game.  It will be assumed that at the beginning of each
 //round the user is half invested in the stock 
 var userCash = 1000000;
+// buttonFlag is used to check to make sure someone hasn't already made a choice.  This fixes a bug where
+//The user could keep hitting buttons until the next round
+var alreadyChoseFlag = false;
 
 var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var startingIndex;//index of the 
@@ -55,6 +58,12 @@ $(document).ready(function(){
     
 });
 
+//When we start the next round we will have to reset some variables and load 
+//new information
+function nextRound(){
+    alreadyChoseFlag = false;
+    ajax();
+}
 ajax();
 function getDay(){
     startingIndex=Math.floor(Math.random()*(obj.startofDayIndex.length-1)+1);
@@ -191,53 +200,71 @@ function plotDay(){
 //the buttons for the action the user chooses
 //the modifier will be a negative or positive percentage based on the rise or fall of the price
 $("#sell-button").on("click", function() {
-    //var action = $(this).attr("value");
-   // alert("Action: " + action);
-    //The user sold all his stock, he is fully divested, the money he has is equal to his orignal userCash at the beginning of the round
-    //userCash = userCash
-    if (modifier > 0){
-        alert("You missed out on " + userCash*modifier + " dollars, idiot!");
+    //check to see if they have already made a choice for this round
+    if (alreadyChoseFlag === false){
+                alreadyChoseFlag = true;
+        //var action = $(this).attr("value");
+    // alert("Action: " + action);
+        //The user sold all his stock, he is fully divested, the money he has is equal to his orignal userCash at the beginning of the round
+        //userCash = userCash
+        if (modifier > 0){
+            $("#messagesToUser").text("You missed out on " + userCash*modifier + " dollars, idiot! You have "+userCash+" dollars.");
+        }
+        else if (modifier === 0){
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+        }
+        else if (modifier < 0){
+            $("#messagesToUser").text("You dodged a bullet this time, you could have lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
+        }
+        console.log(userCash);
+        //wait for a couple of seconds and then start a new round
+        setTimeout(nextRound(), 2000);
     }
-    else if (modifier === 0){
-        alert("I guess your choice really didnt make a difference");
-    }
-    else if (modifier < 0){
-        alert("You dodged a bullet this time, you could have lost" + userCash*modifier +" dollars!")
-    }
-    console.log(userCash);
 });
 
 $("#buy-button").on("click", function() {
-    //var action = $(this).attr("value");
-    //alert("Action: " + action);
-    //if the modifier is negative, it will subtract a percentage of the usercash. Positive will add to the usercash
-    userCash = userCash + userCash*modifier;
-    
-    if (modifier > 0){
-        alert("Good job, you made " + userCash*modifier + " dollars!");
+    //check to see if they have already made a choice for this round
+    if (alreadyChoseFlag === false){
+        alreadyChoseFlag = true;
+        //var action = $(this).attr("value");
+        //alert("Action: " + action);
+        //if the modifier is negative, it will subtract a percentage of the usercash. Positive will add to the usercash
+        userCash = userCash + userCash*modifier;
+        
+        if (modifier > 0){
+            $("#messagesToUser").text("Good job, you made " + userCash*modifier + " dollars! You have "+userCash+" dollars.");
+        }
+        else if (modifier === 0){
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+        }
+        else if (modifier < 0){
+            $("#messagesToUser").text("How could you be so stupid? You lost" + userCash*modifier +" dollars! You have "+userCash+" dollars.")
+        }
+        console.log(userCash);
+        //wait for a couple of seconds and then start a new round
+        setTimeout(nextRound(), 2000);
     }
-    else if (modifier === 0){
-        alert("I guess your choice really didnt make a difference");
-    }
-    else if (modifier < 0){
-        alert("How could you be so stupid? You lost" + userCash*modifier +" dollars!")
-    }
-    console.log(userCash);
 });
 
 $("#hold-button").on("click", function() {
-    // if the user holds, then he keeps half in cash and the other half stays invested.
-    //I have decided that you should be berated for whatever decision you make.
-    userCash = 0.5*userCash + 0.5*userCash*modifier;
-    
-    if (modifier > 0){
-        alert("You missed out on " + 0.5*userCash*modifier + " dollars, idiot!");
+    //check to see if they have already made a choice for this round
+    if (alreadyChoseFlag === false){
+        alreadyChoseFlag = true;
+        // if the user holds, then he keeps half in cash and the other half stays invested.
+        //I have decided that you should be berated for whatever decision you make.
+        userCash = 0.5*userCash + 0.5*userCash*modifier;
+        
+        if (modifier > 0){
+            $("#messagesToUser").text("You missed out on " + 0.5*userCash*modifier + " dollars, idiot! You have "+userCash+" dollars.");
+        }
+        else if (modifier === 0){
+            $("#messagesToUser").text("I guess your choice really didnt make a difference. You have "+userCash+" dollars.");
+        }
+        else if (modifier < 0){
+            $("#messagesToUser").text("How could you be so stupid? You lost" + 0.5*userCash*modifier +" dollars! You have "+userCash+" dollars.")
+        }
+        console.log(userCash);
+        //wait for a couple of seconds and then start a new round
+        setTimeout(nextRound(), 2000);
     }
-    else if (modifier === 0){
-        alert("I guess your choice really didnt make a difference");
-    }
-    else if (modifier < 0){
-        alert("How could you be so stupid? You lost" + 0.5*userCash*modifier +" dollars!")
-    }
-    console.log(userCash);
 });
