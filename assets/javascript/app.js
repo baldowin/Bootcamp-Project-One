@@ -306,7 +306,7 @@ $("#hold-button").on("click", function() {
         setTimeout(nextRound(), 2000);
     }
 });
-database.ref().on("child_changed",function(snapshot){
+/*database.ref().on("child_changed",function(snapshot){
     var leaders=[]
     $("#leaderboard").empty()
     console.log(snapshot);
@@ -344,4 +344,4 @@ database.ref().on("child_changed",function(snapshot){
         leader.text(element.name);
         $("#leaderboard").prepend(leader);
     })
-})
+})*/
