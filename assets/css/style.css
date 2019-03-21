@@ -10,6 +10,10 @@
     font-family: 'Roboto Mono', monospace;
 }
 
+.entryForm p{
+    padding-top: 50px;
+}
+
 #instructions{
     width:50%;
     height:400px;
@@ -18,10 +22,10 @@
     margin-top:10%;
 };
 
-
 #startGameButton{
     height:20px;
 }
+
 body{
     background-image: url(../images/money.jpg);
     background-size: cover;
@@ -34,7 +38,7 @@ body{
     background-color: rgb(51, 51, 51)
 }
 
-.top-bar{
+.topbar{
     height: 80px;
 }
 
@@ -44,13 +48,19 @@ body{
     padding: 15px 0 15px 20px;
 }
 
+
 .polls{
     background: white;
     opacity: .7;
 }
 
+#chartImage{
+    padding-top: 30px;
+}
+
 .card-section{
     background: white;
+    border-radius: 10px;
 }
 
 .news-card-article, .news-card-date{
@@ -62,8 +72,12 @@ body{
     justify-content: center;
 }
 
-.graph-button{
+/* .graph-button{
     margin: 10px 20px 20px 20px;
+} */
+
+.svg-container{
+    width: 100%;
 }
 
 .polls-options{
@@ -76,5 +90,19 @@ body{
 
 .panel{
     margin-top: 20px;
+    border-radius: 10px;
+}
+
+.leaderboard{
+    text-align: center;
+}
+
+.footer{
+    width: 100%;
+    background-color: gray;
+    opacity: .9;
+    padding-top: 20px;
+    position: relative;
+    bottom: 0;
 }
 
