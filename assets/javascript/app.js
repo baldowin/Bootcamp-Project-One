@@ -10,7 +10,7 @@
   };
   firebase.initializeApp(config);
 
-var database=firebase.database;
+var database=firebase.database();
 
 var stocks = ["aapl","ibm","xom","cvx","pg","mmm","jnj","mcd","wmt","utx","ko","ba","cat","jpm","hpq","vz","t","kft","dd","mrk","dis","hd","msft","axp","bac","pfe","ge","intc","aa","c","gm"];
 var api="FP8BK7QFX0CXDD9P";
@@ -22,6 +22,7 @@ var closeAtChoice;
 var closeAnswer;
 //This is the value of the percentage of change over the two hour period at the end of the day
 var modifier;
+var username;
 //User cash is the money that the user has during the game.  It will be assumed that at the beginning of each
 //round the user is half invested in the stock 
 var userCash = 1000000;
@@ -45,6 +46,7 @@ $(document).ready(function(){
     };
 
     function instructions(){
+        logInfo()
         $(".entryForm").hide();
         $(".gameInstructions").show();
         console.log("B")
@@ -57,7 +59,26 @@ $(document).ready(function(){
     };
     
 });
-
+function logInfo(){//updates firebase with user information
+    username=$("#username").val().trim();
+    var email=$("#email").val().trim();
+    console.log(username+": "+email);
+    database.ref().once("value",function(snapshot){ 
+        if (snapshot.child(username).exists()){
+            userCash=snapshot.child(username).child("cash").val();
+        }
+        else{
+            createNew(email);
+        }
+    })
+}
+function createNew(email){
+    database.ref("/"+username).set({
+            username:username,
+            email:email,
+            cash:userCash
+        });
+}
 //When we start the next round we will have to reset some variables and load 
 //new information
 function nextRound(){
@@ -234,6 +255,9 @@ $("#buy-button").on("click", function() {
         //alert("Action: " + action);
         //if the modifier is negative, it will subtract a percentage of the usercash. Positive will add to the usercash
         userCash = userCash + userCash*modifier;
+        database.ref("/"+username).update({
+            cash:userCash
+        });
         
         if (modifier > 0){
             $("#messagesToUser").text("Good job, you made " + userCash*modifier + " dollars! You have "+userCash+" dollars.");
@@ -258,7 +282,10 @@ $("#hold-button").on("click", function() {
         // if the user holds, then he keeps half in cash and the other half stays invested.
         //I have decided that you should be berated for whatever decision you make.
         userCash = 0.5*userCash + 0.5*userCash*modifier;
-        
+        database.ref("/"+username).update({
+            cash:userCash
+        });
+
         if (modifier > 0){
             $("#messagesToUser").text("You missed out on " + 0.5*userCash*modifier + " dollars, idiot! You have "+userCash+" dollars.");
         }
@@ -274,3 +301,42 @@ $("#hold-button").on("click", function() {
         setTimeout(nextRound(), 2000);
     }
 });
+database.ref().on("child_changed",function(snapshot){
+    var leaders=[]
+    $("#leaderboard").empty()
+    console.log(snapshot);
+    $.each(snapshot,function(user){//get users from firebase
+        console.log(user);
+        var name = user.val();
+        var cash = user.child("cash").val();
+        leaders.push({name:name,cash:cash});
+    })
+    function swap(x,y){
+        var temp=leaders[x];
+        leaders[x]=leaders[y];
+        leaders[y]=temp;
+    }
+    var last=leaders.length; //quick sort leaders array
+    for (var i =0;i<leaders.length-1;i++){
+        var pivot = leaders[i].cash;
+        var less = i;
+        if(i>last) last=leaders.length;
+        for (var j =i+1;j<last;j++){
+            if (pivot>leader[j].cash){
+                less++;
+                if(less!=j){
+                    swap(j,less);
+                }
+            }
+        }
+        if(less!=i){
+            swap(i,less);
+            i--;
+        }
+    }
+    leaders.forEach(function(element){//add users to leaderboard
+        var leader = $("<li>");
+        leader.text(element.name);
+        $("#leaderboard").prepend(leader);
+    })
+})
