@@ -3,7 +3,8 @@
 }; */
 .entryForm{
     display: block;
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
     margin: auto;
     margin-top: 10%;
     font-family: 'Roboto Mono', monospace;
