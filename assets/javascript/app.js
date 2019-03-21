@@ -44,18 +44,20 @@ $(document).ready(function(){
         instructions()
     }); //user clicks Submit
     $("#instructions").on("click", beginGame)
-
+    // event.preventDefault();
     };
 
     function instructions(){
         logInfo()
         $(".entryForm").hide();
         $(".gameInstructions").show();
+        // event.preventDefault();
         //console.log("B")
     };
     
     function beginGame(){
         $(".gameInstructions").hide();
+        // event.preventDefault();
         $(".gameArea").show();
         //console.log("C")
     };
