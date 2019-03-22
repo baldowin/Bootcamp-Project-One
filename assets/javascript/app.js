@@ -69,9 +69,14 @@ $(document).ready(function(){
     };
 
     function instructions(){
-        logInfo()
+        if(logInfo()){
+
         $(".entryForm").hide();
         $(".gameInstructions").show();
+        }
+        else {
+            alert("email does not match our records");
+        }
         event.preventDefault();
         //console.log("B")
     };
@@ -88,16 +93,21 @@ $(document).ready(function(){
 });
 function logInfo(){//updates firebase with user information
     username=$("#username").val().trim();
+    var x=true;
     var email=$("#email").val().trim();
-    console.log(username+": "+email);
     database.ref().once("value",function(snapshot){ 
         if (snapshot.child(username).exists()){
+            if (email!=snapshot.child(username).child("email").val()){
+                x=false;
+                return;
+            }
             userCash=snapshot.child(username).child("cash").val();
         }
         else{
             createNew(email);
         }
     })
+    return x;
 }
 function createNew(email){
     database.ref("/"+username).set({
@@ -125,7 +135,7 @@ $.ajax({
         method:"GET"
     }).then(function(response){
         var dates = response["Time Series (5min)"]
-        console.log(dates);
+        //console.log(dates);
         var i=0;
         var indexes=[-1];
         var open=[];
@@ -171,7 +181,7 @@ function articleGet(stock,articleDate){//gets array of articles from the day abo
      //set the title of the article to be displayed to the most relevent article
      var newTitle = obj.articles[0].title;
      $("#newTitle").text(newTitle);
-    console.log("obj: " + obj);
+    //console.log("obj: " + obj);
 })
 }
 
@@ -220,7 +230,7 @@ function plotDay(){
       xaxis: 'x', 
       yaxis: 'y'
     };
-    console.log("trace1:" + trace1);
+    //console.log("trace1:" + trace1);
     var data = [trace1];
     var layout = {
       dragmode: 'zoom', 
@@ -340,9 +350,7 @@ $("#hold-button").on("click", function(event) {
 database.ref().on("value",function(snapshot){
     var leaders=[]
     $("#leaderboard").empty()
-    console.log(snapshot);
     snapshot.forEach(function(user){//get users from firebase
-        console.log(user);
         if (user.child("username").val()===null){
         }
         var name = user.child("username").val();
