@@ -46,15 +46,22 @@ $(document).ready(function(){
         event.preventDefault();
         var username=$("#username").val().trim();
         var email=$("#email").val().trim();
-        // if(username!=""&&isEmail(email)){
-        //     instructions();
-        // }
-        // else{
-        //     $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
-        //     $("#username").focus();
-        //     $('#p2').text("* Please enter a valid email address *"); // This Segment Displays The Validation Rule For Email
-        //     $("#email").focus();
-        // }
+        if(username!=""&&isEmail(email)){
+            instructions();
+        }
+        else{
+            $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
+            $("#username").focus();
+            $('#p2').text("* Please enter a valid email address *"); // This Segment Displays The Validation Rule For Email
+            $("#email").focus();
+        }
+            // if(username!=""){
+            // instructions();
+            // }
+            // else{
+            // $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
+            // $("#username").focus();
+            // }
         
     }); //user clicks Submit
     $("#instructions").on("click", beginGame)
