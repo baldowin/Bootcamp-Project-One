@@ -13,7 +13,7 @@
 var database=firebase.database();
 
 var stocks = ["aapl","ibm","xom","cvx","pg","mmm","jnj","mcd","wmt","utx","ko","ba","cat","jpm","hpq","vz","t","kft","dd","mrk","dis","hd","msft","axp","bac","pfe","ge","intc","aa","c","gm"];
-var api=["FP8BK7QFX0CXDD9P"];
+var api=["FP8BK7QFX0CXDD9P","RLYPXXWU18YFRUJF","MV6L1EAULHI1XUVA","WXL67611PS57C06W","VELK70SJ7AX5XQO6","HZI6B3EKJFF21GH2"];
 var obj; 
 //Variable that holds the closing price at the moment when the user makes a decision
 var closeAtChoice; 
@@ -28,9 +28,7 @@ var userCash = 1000000;
 // buttonFlag is used to check to make sure someone hasn't already made a choice.  This fixes a bug where
 //The user could keep hitting buttons until the next round
 var alreadyChoseFlag = true;
-
-//var napi="7ba42f39aff0466dae6b8019f2feebf5";
-var napi="78528141bbbb4859a1043d285a0e2603";
+var napi=["78528141bbbb4859a1043d285a0e2603","7ba42f39aff0466dae6b8019f2feebf5","2a0f6c0b35bc4e59a2a2c42ca6ec054e"];
 var startingIndex;//index of the 
 function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -135,8 +133,10 @@ function getDay(){
 }
 function ajax(){
     var stock=stocks[Math.floor(Math.random()*stocks.length)];
+    var fapi=api[Math.floor(Math.random()*api.length)];
+    console.log(fapi);
 $.ajax({
-        url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+api[Math.floor(Math.random()*api.length)],
+        url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+fapi,
         method:"GET"
     }).then(function(response){
         var dates = response["Time Series (5min)"]
@@ -180,13 +180,14 @@ $.ajax({
         else console.log("error with api");
         articleGet(stock,getDay());
         setAnswer();
-        setTimeout(3000,plotDay("first"));
-        alreadyChoseFlag = false        
+        setTimeout(3000);
+        plotDay("first");
+        alreadyChoseFlag = false ;       
     })
 }
 function articleGet(stock,articleDate){//gets array of articles from the day about the stock sorted by relevance
      $.ajax({
-         url:"https://newsapi.org/v2/everything?q="+stock+"&sortBy=relevency"+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi,
+         url:"https://newsapi.org/v2/everything?q="+stock+"&sortBy=relevency"+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi[Math.floor(Math.random()*napi.length)],
          method:"GET"
      }).then(function(response){   
      if(response.articles!=undefined) obj.articles=response.articles;
