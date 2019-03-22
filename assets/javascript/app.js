@@ -282,7 +282,7 @@ function plotDay(x){
       }
     };
 
-    Plotly.newPlot('chartImage', data, layout)
+    Plotly.newPlot('chartImage', data, layout, {responsive: true})
   }  
 
 
