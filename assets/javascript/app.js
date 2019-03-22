@@ -33,18 +33,28 @@ var alreadyChoseFlag = false;
 //var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var napi="78528141bbbb4859a1043d285a0e2603";
 var startingIndex;//index of the 
+function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  }
 $(document).ready(function(){    
     window.onload = function(){
-    $(".gameArea").hide(); //hide game. Email info will show
-    $(".gameInstructions").hide();
-    $(".entryForm").show();
-    // $("#submitInfo").on("click", function(event){
-    $("input[type='submit']").on("click", function(event){
+    $(".gameArea").hide(500); //hide game. Email info will show
+    $(".gameInstructions").hide(500);
+    $(".entryForm").show(500);
+    $("#submitBtn").on("click", function(event){
         event.preventDefault();
-        instructions()
+        var username=$("#username").val().trim();
+        var email=$("#email").val().trim();
+        if(username!=""&&isEmail(email)){
+            instructions();
+        }
+        else{
+            alert("Please insert a username or email")
+        }
     }); //user clicks Submit
     $("#instructions").on("click", beginGame)
-    // event.preventDefault();
+    event.preventDefault();
     };
 
     function instructions(){
@@ -230,7 +240,9 @@ function plotDay(){
 
 //the buttons for the action the user chooses
 //the modifier will be a negative or positive percentage based on the rise or fall of the price
-$("#sell-button").on("click", function() {
+$("#sell-button").on("click", function(event) {
+  event.preventDefault();
+
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
                 alreadyChoseFlag = true;
@@ -255,7 +267,8 @@ $("#sell-button").on("click", function() {
     }
 });
 
-$("#buy-button").on("click", function() {
+$("#buy-button").on("click", function(event) {
+    event.preventDefault();
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
         alreadyChoseFlag = true;
@@ -284,7 +297,9 @@ $("#buy-button").on("click", function() {
     }
 });
 
-$("#hold-button").on("click", function() {
+$("#hold-button").on("click", function(event) {
+  event.preventDefault();
+
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
         alreadyChoseFlag = true;
