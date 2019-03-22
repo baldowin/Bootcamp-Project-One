@@ -176,7 +176,7 @@ $.ajax({
         }
         articleGet(stock,getDay());
         setAnswer();
-        plotDay();
+        plotDay("first");
     })
 }
 function articleGet(stock,articleDate){//gets array of articles from the day about the stock sorted by relevance
@@ -210,19 +210,31 @@ function setAnswer() {
 
 }
 
-function plotDay(){
-    //n1 sets the index of the start of the splice, n2 sets the end of the splice
-    //Everything is listed backwards (the oldest stuff comes first)
-    //we will clip off the last two hours of the day to make the close mysterious
-    
-    //The information is stored in 5 minutes increments.  If we advance the n1 index by 40 
-    //it will cut off the last two hours of the day
-    n1 = obj.startofDayIndex[startingIndex-1]+21;
-    //console.log("n1:" + n1);
-    n2 = obj.startofDayIndex[startingIndex];
-    //console.log("n2:" + n2);
+//This plots the chart data.  We will pass a variable to the function to indicate if we are plotting a partial or full day of data.
+function plotDay(x){
+    //this sets the date for the end of the chart on the x axis
+    var endOfXRange = n1 = obj.startofDayIndex[startingIndex-1]+1;
 
-  var trace1 = {
+    if (x === "first") {
+        //n1 sets the index of the start of the splice, n2 sets the end of the splice
+        //Everything is listed backwards (the oldest stuff comes first)
+        //we will clip off the last two hours of the day to make the close mysterious    
+        //The information is stored in 5 minutes increments.  If we advance the n1 index by 40 
+        //it will cut off the last two hours of the day
+        n1 = obj.startofDayIndex[startingIndex-1]+21;
+        //console.log("n1:" + n1);
+        n2 = obj.startofDayIndex[startingIndex];
+        //console.log("n2:" + n2);
+    }
+    else if (x === "second") {
+        //now we just show the whole day of candles
+        n1 = obj.startofDayIndex[startingIndex-1]+1;
+        //console.log("n1:" + n1);
+        n2 = obj.startofDayIndex[startingIndex];
+        //console.log("n2:" + n2);
+    }
+    
+    var trace1 = {
     x: obj.timeArr.slice(n1,n2),
     open: obj.opens.slice(n1,n2) , 
     close: obj.closes.slice(n1,n2), 
@@ -249,8 +261,10 @@ function plotDay(){
       }, 
       showlegend: false, 
       xaxis: {
-        autorange: true, 
+        autorange: false, 
         domain: [0, 1], 
+        //set the range of the x axis to the beginning and end of the timeArr date
+        range: [obj.timeArr[n2], obj.timeArr[endOfXRange]],
         rangeslider: {visible:false}, 
         title: 'Date', 
         type: 'date'
@@ -291,7 +305,8 @@ $("#sell-button").on("click", function(event) {
    
         //wait for a couple of seconds and then start a new round
        // $("#chartImage").empty();
-        setTimeout(nextRound(), 2000);
+        plotDay("second");
+        setTimeout(nextRound(), 4000);
     }
 });
 
@@ -320,8 +335,8 @@ $("#buy-button").on("click", function(event) {
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
-       // $("#chartImage").empty();
-        setTimeout(nextRound(), 2000);
+        plotDay("second");
+        setTimeout(nextRound(), 4000);
     }
 });
 
@@ -350,10 +365,11 @@ $("#hold-button").on("click", function(event) {
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
-       // $("#chartImage").empty();
-        setTimeout(nextRound(), 2000);
+        plotDay("second");
+        setTimeout(nextRound(), 4000);
     }
 });
+
 database.ref().on("value",function(snapshot){
     var leaders=[]
     $("#leaderboard").empty()
