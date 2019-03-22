@@ -30,6 +30,20 @@ var userCash = 1000000;
 //The user could keep hitting buttons until the next round
 var alreadyChoseFlag = false;
 
+
+ //Audio buttons
+//  var baseUrl = "http://www.soundjay.com/button/";
+//  var audio = ["beep-01a.mp3", "beep-02.mp3", "beep-03.mp3", "beep-04.mp3", "beep-05.mp3", "beep-06.mp3", "beep-07.mp3", "beep-08b.mp3", "beep-09.mp3"];
+
+
+var baseUrl = "http://www.soundjay.com/button/";
+var audio = ["beep-01a.mp3", "beep-02.mp3", "beep-03.mp3", "beep-04.mp3", "beep-05.mp3", "beep-06.mp3", "beep-07.mp3", "beep-08b.mp3", "beep-09.mp3"];
+
+$('button.ci').click(function() {
+    var i = $(this).attr('id').substring(1);
+    new Audio(baseUrl + audio[i-1]).play();
+});
+
 //var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var napi="78528141bbbb4859a1043d285a0e2603";
 var startingIndex;//index of the 
@@ -43,6 +57,12 @@ $(document).ready(function(){
     $(".gameInstructions").hide(500);
     $(".entryForm").show(500);
     $("#submitBtn").on("click", function(event){
+    // $("button.submitBtn").on("click", function(event){
+
+        var i = $(this).attr($("#submitBtn")).substring(1);           //get the index of button
+        new Audio(baseUrl + audio[1]).play();          //play corresponding audio
+
+
         event.preventDefault();
         $('#p1').empty();
         $('#p2').empty();
@@ -61,14 +81,8 @@ $(document).ready(function(){
             $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
             $("#username").focus();
         }
-            // if(username!=""){
-            // instructions();
-            // }
-            // else{
-            // $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
-            // $("#username").focus();
-            // }
-        
+    
+
     }); //user clicks Submit
     $("#instructions").on("click", beginGame)
     event.preventDefault();
@@ -264,6 +278,7 @@ function plotDay(){
 
     Plotly.newPlot('chartImage', data, layout)
   }  
+
 
 
 //the buttons for the action the user chooses
