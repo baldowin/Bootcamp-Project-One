@@ -44,14 +44,31 @@ $(document).ready(function(){
     $(".entryForm").show(500);
     $("#submitBtn").on("click", function(event){
         event.preventDefault();
+        $('#p1').empty();
+        $('#p2').empty();
         var username=$("#username").val().trim();
         var email=$("#email").val().trim();
-        if(username!=""&&isEmail(email)){
-            instructions();
+        if(username!=""){
+            if (isEmail(email)){
+                instructions();
+            }
+            else{
+                $('#p2').text("* Please enter a valid email address *"); // This Segment Displays The Validation Rule For Email
+                $("#email").focus();
+            }
         }
         else{
-            alert("Please insert a username or email")
+            $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
+            $("#username").focus();
         }
+            // if(username!=""){
+            // instructions();
+            // }
+            // else{
+            // $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
+            // $("#username").focus();
+            // }
+        
     }); //user clicks Submit
     $("#instructions").on("click", beginGame)
     event.preventDefault();
@@ -64,7 +81,7 @@ $(document).ready(function(){
         $(".gameInstructions").show();
         }
         else {
-            alert("email does not match our records");
+            $("#p2").text("Email does not match our record");
         }
         event.preventDefault();
         //console.log("B")
@@ -88,6 +105,7 @@ function logInfo(){//updates firebase with user information
         if (snapshot.child(username).exists()){
             if (email!=snapshot.child(username).child("email").val()){
                 x=false;
+                
                 return;
             }
             userCash=snapshot.child(username).child("cash").val();
