@@ -13,9 +13,8 @@
 var database=firebase.database();
 
 var stocks = ["aapl","ibm","xom","cvx","pg","mmm","jnj","mcd","wmt","utx","ko","ba","cat","jpm","hpq","vz","t","kft","dd","mrk","dis","hd","msft","axp","bac","pfe","ge","intc","aa","c","gm"];
-var api="FP8BK7QFX0CXDD9P";
+var api=["FP8BK7QFX0CXDD9P"];
 var obj; 
-
 //Variable that holds the closing price at the moment when the user makes a decision
 var closeAtChoice; 
 //The variable that holds the value of the end of day close price.
@@ -28,7 +27,7 @@ var username;
 var userCash = 1000000;
 // buttonFlag is used to check to make sure someone hasn't already made a choice.  This fixes a bug where
 //The user could keep hitting buttons until the next round
-var alreadyChoseFlag = false;
+var alreadyChoseFlag = true;
 
 //var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var napi="78528141bbbb4859a1043d285a0e2603";
@@ -125,11 +124,10 @@ function createNew(email){
 }
 //When we start the next round we will have to reset some variables and load 
 //new information
-function nextRound(){
-    alreadyChoseFlag = false;
+/*function nextRound(){
     obj = [];
     ajax();
-}
+}*/
 ajax();
 function getDay(){
     startingIndex=Math.floor(Math.random()*(obj.startofDayIndex.length-1)+1);
@@ -138,7 +136,7 @@ function getDay(){
 function ajax(){
     var stock=stocks[Math.floor(Math.random()*stocks.length)];
 $.ajax({
-        url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+api,
+        url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+api[Math.floor(Math.random()*api.length)],
         method:"GET"
     }).then(function(response){
         var dates = response["Time Series (5min)"]
@@ -153,30 +151,37 @@ $.ajax({
 
         //GEtting this error "Uncaught TypeError: Cannot read property 'length' of undefined"
         //I think the error is where it isn't getting information back for a query
-        $.each(response["Time Series (5min)"],function(day){//create arrays with stock info
-            var x = dates[day]
-            date.push(day);
-            open.push(x["1. open"]);
-            high.push(x["2. high"]);
-            low.push(x["3. low"]);
-            close.push(x["4. close"]);
-            if(day.split(" ")[1]==="09:35:00"){//get the index of when each day starts
-                indexes.push(i);;
+        if (response["Time Series (5min)"]!=undefined){
+            $.each(response["Time Series (5min)"],function(day){//create arrays with stock info
+                var x = dates[day]
+                date.push(day);
+                open.push(x["1. open"]);
+                high.push(x["2. high"]);
+                low.push(x["3. low"]);
+                close.push(x["4. close"]);
+                if(day.split(" ")[1]==="09:35:00"){//get the index of when each day starts
+                    indexes.push(i);;
+                }
+                i++;
+            });
+            obj={//create an object with all the information
+                stock:stock,
+                startofDayIndex:indexes,
+                timeArr:date,
+                highs:high,
+                lows:low,
+                opens:open,
+                closes:close,
             }
-            i++;
-        });
-        obj={//create an object with all the information
-            stock:stock,
-            startofDayIndex:indexes,
-            timeArr:date,
-            highs:high,
-            lows:low,
-            opens:open,
-            closes:close,
         }
+        else if(obj.startofDayIndex===undefined){
+            alert("we got a problem, try again later")
+        }
+        else console.log("error with api");
         articleGet(stock,getDay());
         setAnswer();
-        plotDay("first");
+        setTimeout(3000,plotDay("first"));
+        alreadyChoseFlag = false        
     })
 }
 function articleGet(stock,articleDate){//gets array of articles from the day about the stock sorted by relevance
@@ -184,7 +189,7 @@ function articleGet(stock,articleDate){//gets array of articles from the day abo
          url:"https://newsapi.org/v2/everything?q="+stock+"&sortBy=relevency"+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi,
          method:"GET"
      }).then(function(response){   
-     obj.articles=response.articles;
+     if(response.articles!=undefined) obj.articles=response.articles;
      //set the title of the article to be displayed to the most relevent article
      var newTitle = obj.articles[0].title;
      $("#newTitle").text(newTitle);
@@ -306,7 +311,7 @@ $("#sell-button").on("click", function(event) {
         //wait for a couple of seconds and then start a new round
        // $("#chartImage").empty();
         plotDay("second");
-        setTimeout(nextRound(), 4000);
+        ajax();
     }
 });
 
@@ -336,7 +341,7 @@ $("#buy-button").on("click", function(event) {
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
         plotDay("second");
-        setTimeout(nextRound(), 4000);
+        ajax();
     }
 });
 
@@ -366,7 +371,7 @@ $("#hold-button").on("click", function(event) {
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
         plotDay("second");
-        setTimeout(nextRound(), 4000);
+        ajax();
     }
 });
 
