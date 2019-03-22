@@ -43,20 +43,18 @@
           <p>Welcome to Ri$ky Bu$iness!<br><hr>Please enter your name and email address to begin.</p>
       </div>
       <form>
-        <!-- <div class="large-5 small-4 columns">
-          <label>User Name
-            <!-- <br> -->
-            <!-- <input type="text" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"> -->
         <div class="large-5 small-5 columns">
           <label>User Name
-            <input type="text" id="username" required pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"/>
+            <input type="text" name="username" id="username" pattern="[a-zA-Z]{2,6}" placeholder="Enter User Name"/>
+            <p id="p1"></p> <!-- This Segment Displays The Validation Rule For User Name -->
           </label>
-          <label>Email Address
-            <input type="email" id="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Enter email address">
+          <label>E-mail: 
+            <input type="email" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Enter Email Address"/>
+            <p id="p2"></p> <!-- This Segment Displays The Validation Rule For Email -->
           </label>
-            <input type="submit">
         </div>
       </form>
+      <button id="submitBtn">Submit</button>
       <div class="large-1 small-1 columns"><img></div>
     </div>
   </div>

@@ -33,46 +33,88 @@ var alreadyChoseFlag = false;
 //var napi="7ba42f39aff0466dae6b8019f2feebf5";
 var napi="78528141bbbb4859a1043d285a0e2603";
 var startingIndex;//index of the 
+function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  }
 $(document).ready(function(){    
     window.onload = function(){
-    $(".gameArea").hide(); //hide game. Email info will show
-    $(".gameInstructions").hide();
-    $(".entryForm").show();
-    // $("#submitInfo").on("click", function(event){
-    $("input[type='submit']").on("click", function(event){
+    $(".gameArea").hide(500); //hide game. Email info will show
+    $(".gameInstructions").hide(500);
+    $(".entryForm").show(500);
+    $("#submitBtn").on("click", function(event){
         event.preventDefault();
-        instructions()
+        $('#p1').empty();
+        $('#p2').empty();
+        var username=$("#username").val().trim();
+        var email=$("#email").val().trim();
+        if(username!=""){
+            if (isEmail(email)){
+                instructions();
+            }
+            else{
+                $('#p2').text("* Please enter a valid email address *"); // This Segment Displays The Validation Rule For Email
+                $("#email").focus();
+            }
+        }
+        else{
+            $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
+            $("#username").focus();
+        }
+            // if(username!=""){
+            // instructions();
+            // }
+            // else{
+            // $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
+            // $("#username").focus();
+            // }
+        
     }); //user clicks Submit
     $("#instructions").on("click", beginGame)
-
+    event.preventDefault();
     };
 
     function instructions(){
-        logInfo()
+        if(logInfo()){
+
         $(".entryForm").hide();
         $(".gameInstructions").show();
+        }
+        else {
+            $("#p2").text("Email does not match our record");
+        }
+        event.preventDefault();
         //console.log("B")
     };
     
     function beginGame(){
         $(".gameInstructions").hide();
+        // event.preventDefault();
         $(".gameArea").show();
         //console.log("C")
+        // event.preventDefault();
+
     };
     
 });
 function logInfo(){//updates firebase with user information
     username=$("#username").val().trim();
+    var x=true;
     var email=$("#email").val().trim();
-    console.log(username+": "+email);
     database.ref().once("value",function(snapshot){ 
         if (snapshot.child(username).exists()){
+            if (email!=snapshot.child(username).child("email").val()){
+                x=false;
+                
+                return;
+            }
             userCash=snapshot.child(username).child("cash").val();
         }
         else{
             createNew(email);
         }
     })
+    return x;
 }
 function createNew(email){
     database.ref("/"+username).set({
@@ -100,7 +142,7 @@ $.ajax({
         method:"GET"
     }).then(function(response){
         var dates = response["Time Series (5min)"]
-        console.log(dates);
+        //console.log(dates);
         var i=0;
         var indexes=[-1];
         var open=[];
@@ -146,7 +188,7 @@ function articleGet(stock,articleDate){//gets array of articles from the day abo
      //set the title of the article to be displayed to the most relevent article
      var newTitle = obj.articles[0].title;
      $("#newTitle").text(newTitle);
-    console.log("obj: " + obj);
+    //console.log("obj: " + obj);
 })
 }
 
@@ -195,7 +237,7 @@ function plotDay(){
       xaxis: 'x', 
       yaxis: 'y'
     };
-    console.log("trace1:" + trace1);
+    //console.log("trace1:" + trace1);
     var data = [trace1];
     var layout = {
       dragmode: 'zoom', 
@@ -226,7 +268,9 @@ function plotDay(){
 
 //the buttons for the action the user chooses
 //the modifier will be a negative or positive percentage based on the rise or fall of the price
-$("#sell-button").on("click", function() {
+$("#sell-button").on("click", function(event) {
+  event.preventDefault();
+
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
                 alreadyChoseFlag = true;
@@ -251,7 +295,8 @@ $("#sell-button").on("click", function() {
     }
 });
 
-$("#buy-button").on("click", function() {
+$("#buy-button").on("click", function(event) {
+    event.preventDefault();
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
         alreadyChoseFlag = true;
@@ -280,7 +325,9 @@ $("#buy-button").on("click", function() {
     }
 });
 
-$("#hold-button").on("click", function() {
+$("#hold-button").on("click", function(event) {
+  event.preventDefault();
+
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
         alreadyChoseFlag = true;
@@ -307,14 +354,18 @@ $("#hold-button").on("click", function() {
         setTimeout(nextRound(), 2000);
     }
 });
-/*database.ref().on("child_changed",function(snapshot){
+database.ref().on("value",function(snapshot){
     var leaders=[]
     $("#leaderboard").empty()
-    console.log(snapshot);
-    $.each(snapshot,function(user){//get users from firebase
-        console.log(user);
-        var name = user.val();
+    snapshot.forEach(function(user){//get users from firebase
+        if (user.child("username").val()===null){
+        }
+        var name = user.child("username").val();
         var cash = user.child("cash").val();
+        if (name===null){
+            name="start";
+            cash=1000000;
+        }
         leaders.push({name:name,cash:cash});
     })
     function swap(x,y){
@@ -328,7 +379,7 @@ $("#hold-button").on("click", function() {
         var less = i;
         if(i>last) last=leaders.length;
         for (var j =i+1;j<last;j++){
-            if (pivot>leader[j].cash){
+            if (pivot>leaders[j].cash){
                 less++;
                 if(less!=j){
                     swap(j,less);
@@ -342,7 +393,7 @@ $("#hold-button").on("click", function() {
     }
     leaders.forEach(function(element){//add users to leaderboard
         var leader = $("<li>");
-        leader.text(element.name);
+        leader.text(element.name+": "+element.cash);
         $("#leaderboard").prepend(leader);
     })
-})*/
+})
