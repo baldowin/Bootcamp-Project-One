@@ -409,7 +409,7 @@ database.ref().on("value",function(snapshot){
     }
     leaders.forEach(function(element){//add users to leaderboard
         var leader = $("<li>");
-        leader.text(element.name+": "+element.cash);
+        leader.text(element.name+": $"+ Math.abs(element.cash).toFixed(2));
         $("#leaderboard").prepend(leader);
     })
 })
