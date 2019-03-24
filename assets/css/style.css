@@ -33,13 +33,11 @@ body{
 }
 
 .navbar{
-    width: 100%;
-    height: 80px;
     background-color: rgb(51, 51, 51)
 }
 
-.topbar{
-    height: 80px;
+#header-title{
+    color: white;
 }
 
 #header-title{
@@ -56,6 +54,7 @@ body{
 
 #chartImage{
     padding-top: 30px;
+    max-width: 656px;
 }
 
 .card-section{
@@ -102,12 +101,11 @@ body{
     margin-top: 20px;
 }
 
-.footer{
+#footer{
     background-color: gray;
     opacity: .9;
-    padding-top: 20px;
+    padding: 10px 0 10px 20px;
+    margin-top: 25px;
     position: relative;
     bottom: 0;
-    width: auto;
 }
-

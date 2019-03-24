@@ -13,9 +13,8 @@
 var database=firebase.database();
 
 var stocks = ["aapl","ibm","xom","cvx","pg","mmm","jnj","mcd","wmt","utx","ko","ba","cat","jpm","hpq","vz","t","kft","dd","mrk","dis","hd","msft","axp","bac","pfe","ge","intc","aa","c","gm"];
-var api="FP8BK7QFX0CXDD9P";
+var api=["FP8BK7QFX0CXDD9P","RLYPXXWU18YFRUJF","MV6L1EAULHI1XUVA","WXL67611PS57C06W","VELK70SJ7AX5XQO6","HZI6B3EKJFF21GH2"];
 var obj; 
-
 //Variable that holds the closing price at the moment when the user makes a decision
 var closeAtChoice; 
 //The variable that holds the value of the end of day close price.
@@ -30,22 +29,20 @@ var userCash = 1000000;
 //The user could keep hitting buttons until the next round
 var alreadyChoseFlag = false;
 
+var audioElement = document.createElement("audio");
+audioElement.setAttribute("src", "assets/coin-drop-4.mp3");
 
- //Audio buttons
-//  var baseUrl = "http://www.soundjay.com/button/";
-//  var audio = ["beep-01a.mp3", "beep-02.mp3", "beep-03.mp3", "beep-04.mp3", "beep-05.mp3", "beep-06.mp3", "beep-07.mp3", "beep-08b.mp3", "beep-09.mp3"];
+var audioElement1 = document.createElement("audio")
+audioElement1.setAttribute("src", "assets/nyse-opening-bell.mp3" ) //NYSE opening bell. Plays after you submit your username and email
 
+var audioElement2 = document.createElement("audio");
+audioElement2.setAttribute("src", "assets/Doh 9.mp3" ) //Doh! Plays when you lose something
 
-var baseUrl = "http://www.soundjay.com/button/";
-var audio = ["beep-01a.mp3", "beep-02.mp3", "beep-03.mp3", "beep-04.mp3", "beep-05.mp3", "beep-06.mp3", "beep-07.mp3", "beep-08b.mp3", "beep-09.mp3"];
+var audioElement3 = document.createElement("audio");
+audioElement3.setAttribute("src", "assets/woohoo.mp3" ) //Woohoo! Plays when you make money
 
-$('button.ci').click(function() {
-    var i = $(this).attr('id').substring(1);
-    new Audio(baseUrl + audio[i-1]).play();
-});
-
-//var napi="7ba42f39aff0466dae6b8019f2feebf5";
-var napi="78528141bbbb4859a1043d285a0e2603";
+var alreadyChoseFlag = true;
+var napi=["78528141bbbb4859a1043d285a0e2603","7ba42f39aff0466dae6b8019f2feebf5","2a0f6c0b35bc4e59a2a2c42ca6ec054e"];
 var startingIndex;//index of the 
 function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -57,13 +54,9 @@ $(document).ready(function(){
     $(".gameInstructions").hide(500);
     $(".entryForm").show(500);
     $("#submitBtn").on("click", function(event){
-    // $("button.submitBtn").on("click", function(event){
-
-        var i = $(this).attr($("#submitBtn")).substring(1);           //get the index of button
-        new Audio(baseUrl + audio[1]).play();          //play corresponding audio
-
-
+        
         event.preventDefault();
+        audioElement.play(); //play coin drop when Submit is clicked
         $('#p1').empty();
         $('#p2').empty();
         var username=$("#username").val().trim();
@@ -82,11 +75,18 @@ $(document).ready(function(){
             $("#username").focus();
         }
     
+        // audioElement1.play(); //play NYSE opening bell when Submit is clicked
 
     }); //user clicks Submit
+
+    // audioElement1.play(); //play NYSE opening bell when Submit is clicked
+
     $("#instructions").on("click", beginGame)
     event.preventDefault();
+    audioElement1.play(); //play NYSE opening bell when Submit is clicked
+
     };
+    // audioElement1.play(); //play NYSE opening bell when Submit is clicked
 
     function instructions(){
         if(logInfo()){
@@ -99,6 +99,7 @@ $(document).ready(function(){
         }
         event.preventDefault();
         //console.log("B")
+        
     };
     
     function beginGame(){
@@ -139,11 +140,10 @@ function createNew(email){
 }
 //When we start the next round we will have to reset some variables and load 
 //new information
-function nextRound(){
-    alreadyChoseFlag = false;
+/*function nextRound(){
     obj = [];
     ajax();
-}
+}*/
 ajax();
 function getDay(){
     startingIndex=Math.floor(Math.random()*(obj.startofDayIndex.length-1)+1);
@@ -151,8 +151,10 @@ function getDay(){
 }
 function ajax(){
     var stock=stocks[Math.floor(Math.random()*stocks.length)];
+    var fapi=api[Math.floor(Math.random()*api.length)];
+    console.log(fapi);
 $.ajax({
-        url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+api,
+        url:"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+stock+"&interval=5min&outputsize=full&apikey="+fapi,
         method:"GET"
     }).then(function(response){
         var dates = response["Time Series (5min)"]
@@ -167,38 +169,46 @@ $.ajax({
 
         //GEtting this error "Uncaught TypeError: Cannot read property 'length' of undefined"
         //I think the error is where it isn't getting information back for a query
-        $.each(response["Time Series (5min)"],function(day){//create arrays with stock info
-            var x = dates[day]
-            date.push(day);
-            open.push(x["1. open"]);
-            high.push(x["2. high"]);
-            low.push(x["3. low"]);
-            close.push(x["4. close"]);
-            if(day.split(" ")[1]==="09:35:00"){//get the index of when each day starts
-                indexes.push(i);;
+        if (response["Time Series (5min)"]!=undefined){
+            $.each(response["Time Series (5min)"],function(day){//create arrays with stock info
+                var x = dates[day]
+                date.push(day);
+                open.push(x["1. open"]);
+                high.push(x["2. high"]);
+                low.push(x["3. low"]);
+                close.push(x["4. close"]);
+                if(day.split(" ")[1]==="09:35:00"){//get the index of when each day starts
+                    indexes.push(i);;
+                }
+                i++;
+            });
+            obj={//create an object with all the information
+                stock:stock,
+                startofDayIndex:indexes,
+                timeArr:date,
+                highs:high,
+                lows:low,
+                opens:open,
+                closes:close,
             }
-            i++;
-        });
-        obj={//create an object with all the information
-            stock:stock,
-            startofDayIndex:indexes,
-            timeArr:date,
-            highs:high,
-            lows:low,
-            opens:open,
-            closes:close,
         }
+        else if(obj.startofDayIndex===undefined){
+            alert("we got a problem, try again later")
+        }
+        else console.log("error with api");
         articleGet(stock,getDay());
         setAnswer();
-        plotDay();
+        setTimeout(3000);
+        plotDay("first");
+        alreadyChoseFlag = false ;       
     })
 }
 function articleGet(stock,articleDate){//gets array of articles from the day about the stock sorted by relevance
      $.ajax({
-         url:"https://newsapi.org/v2/everything?q="+stock+"&sortBy=relevency"+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi,
+         url:"https://newsapi.org/v2/everything?q="+stock+"&sortBy=relevency"+"&to="+articleDate+"&from="+articleDate+"&apiKey="+napi[Math.floor(Math.random()*napi.length)],
          method:"GET"
      }).then(function(response){   
-     obj.articles=response.articles;
+     if(response.articles!=undefined) obj.articles=response.articles;
      //set the title of the article to be displayed to the most relevent article
      var newTitle = obj.articles[0].title;
      $("#newTitle").text(newTitle);
@@ -224,19 +234,31 @@ function setAnswer() {
 
 }
 
-function plotDay(){
-    //n1 sets the index of the start of the splice, n2 sets the end of the splice
-    //Everything is listed backwards (the oldest stuff comes first)
-    //we will clip off the last two hours of the day to make the close mysterious
-    
-    //The information is stored in 5 minutes increments.  If we advance the n1 index by 40 
-    //it will cut off the last two hours of the day
-    n1 = obj.startofDayIndex[startingIndex-1]+21;
-    //console.log("n1:" + n1);
-    n2 = obj.startofDayIndex[startingIndex];
-    //console.log("n2:" + n2);
+//This plots the chart data.  We will pass a variable to the function to indicate if we are plotting a partial or full day of data.
+function plotDay(x){
+    //this sets the date for the end of the chart on the x axis
+    var endOfXRange = n1 = obj.startofDayIndex[startingIndex-1]+1;
 
-  var trace1 = {
+    if (x === "first") {
+        //n1 sets the index of the start of the splice, n2 sets the end of the splice
+        //Everything is listed backwards (the oldest stuff comes first)
+        //we will clip off the last two hours of the day to make the close mysterious    
+        //The information is stored in 5 minutes increments.  If we advance the n1 index by 40 
+        //it will cut off the last two hours of the day
+        n1 = obj.startofDayIndex[startingIndex-1]+21;
+        //console.log("n1:" + n1);
+        n2 = obj.startofDayIndex[startingIndex];
+        //console.log("n2:" + n2);
+    }
+    else if (x === "second") {
+        //now we just show the whole day of candles
+        n1 = obj.startofDayIndex[startingIndex-1]+1;
+        //console.log("n1:" + n1);
+        n2 = obj.startofDayIndex[startingIndex];
+        //console.log("n2:" + n2);
+    }
+    
+    var trace1 = {
     x: obj.timeArr.slice(n1,n2),
     open: obj.opens.slice(n1,n2) , 
     close: obj.closes.slice(n1,n2), 
@@ -263,8 +285,10 @@ function plotDay(){
       }, 
       showlegend: false, 
       xaxis: {
-        autorange: true, 
+        autorange: false, 
         domain: [0, 1], 
+        //set the range of the x axis to the beginning and end of the timeArr date
+        range: [obj.timeArr[n2], obj.timeArr[endOfXRange]],
         rangeslider: {visible:false}, 
         title: 'Date', 
         type: 'date'
@@ -276,7 +300,7 @@ function plotDay(){
       }
     };
 
-    Plotly.newPlot('chartImage', data, layout)
+    Plotly.newPlot('chartImage', data, layout, {responsive: true})
   }  
 
 
@@ -294,8 +318,10 @@ $("#sell-button").on("click", function(event) {
         //The user sold all his stock, he is fully divested, the money he has is equal to his orignal userCash at the beginning of the round
         //userCash = userCash
         var gainz = userCash*modifier;
+
         if (modifier > 0){
             $("#messagesToUser").text("You missed out on " + gainz.toFixed(2) + " dollars, idiot! You have $" + userCash.toFixed(2) + ".");
+            audioElement2.play(); //Doh! sound
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
@@ -306,12 +332,17 @@ $("#sell-button").on("click", function(event) {
    
         //wait for a couple of seconds and then start a new round
        // $("#chartImage").empty();
-        setTimeout(nextRound(), 2000);
+        plotDay("second");
+        ajax();
     }
 });
 
 $("#buy-button").on("click", function(event) {
     event.preventDefault();
+
+    var audioElement2 = document.createElement("audio");
+    audioElement2.setAttribute("src", "assets/fail-trombone-01.mp3");
+  
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
         alreadyChoseFlag = true;
@@ -325,18 +356,20 @@ $("#buy-button").on("click", function(event) {
         });
         
         if (modifier > 0){
+            audioElement3.play(); //woohoo! sound
             $("#messagesToUser").text("Good job, you made $" + gainz.toFixed(2) + "! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
+            audioElement2.play();
             $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(gainz)).toFixed(2) + "! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
-       // $("#chartImage").empty();
-        setTimeout(nextRound(), 2000);
+        plotDay("second");
+        ajax();
     }
 });
 
@@ -355,20 +388,23 @@ $("#hold-button").on("click", function(event) {
         });
         
         if (modifier > 0){
+            audioElement2.play();
             $("#messagesToUser").text("You missed out on $" + (0.5*gainz).toFixed(2) + ", idiot! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
+            audioElement2.play();
             $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(0.5*gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
-       // $("#chartImage").empty();
-        setTimeout(nextRound(), 2000);
+        plotDay("second");
+        ajax();
     }
 });
+
 database.ref().on("value",function(snapshot){
     var leaders=[]
     $("#leaderboard").empty()
@@ -408,7 +444,7 @@ database.ref().on("value",function(snapshot){
     }
     leaders.forEach(function(element){//add users to leaderboard
         var leader = $("<li>");
-        leader.text(element.name+": "+element.cash);
+        leader.text(element.name+": $"+ Math.abs(element.cash).toFixed(2));
         $("#leaderboard").prepend(leader);
     })
 })
