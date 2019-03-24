@@ -294,6 +294,7 @@ function plotDay(x){
         type: 'date'
       }, 
       yaxis: {
+        height: 450,
         autorange: true, 
         domain: [0, 1], 
         type: 'linear'
