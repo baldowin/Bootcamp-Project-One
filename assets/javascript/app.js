@@ -27,6 +27,20 @@ var username;
 var userCash = 1000000;
 // buttonFlag is used to check to make sure someone hasn't already made a choice.  This fixes a bug where
 //The user could keep hitting buttons until the next round
+var alreadyChoseFlag = false;
+
+var audioElement = document.createElement("audio");
+audioElement.setAttribute("src", "assets/coin-drop-4.mp3");
+
+var audioElement1 = document.createElement("audio")
+audioElement1.setAttribute("src", "assets/nyse-opening-bell.mp3" ) //NYSE opening bell. Plays after you submit your username and email
+
+var audioElement2 = document.createElement("audio");
+audioElement2.setAttribute("src", "assets/Doh 9.mp3" ) //Doh! Plays when you lose something
+
+var audioElement3 = document.createElement("audio");
+audioElement3.setAttribute("src", "assets/woohoo.mp3" ) //Woohoo! Plays when you make money
+
 var alreadyChoseFlag = true;
 var napi=["78528141bbbb4859a1043d285a0e2603","7ba42f39aff0466dae6b8019f2feebf5","2a0f6c0b35bc4e59a2a2c42ca6ec054e"];
 var startingIndex;//index of the 
@@ -40,7 +54,9 @@ $(document).ready(function(){
     $(".gameInstructions").hide(500);
     $(".entryForm").show(500);
     $("#submitBtn").on("click", function(event){
+        
         event.preventDefault();
+        audioElement.play(); //play coin drop when Submit is clicked
         $('#p1').empty();
         $('#p2').empty();
         var username=$("#username").val().trim();
@@ -58,18 +74,19 @@ $(document).ready(function(){
             $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
             $("#username").focus();
         }
-            // if(username!=""){
-            // instructions();
-            // }
-            // else{
-            // $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
-            // $("#username").focus();
-            // }
-        
+    
+        // audioElement1.play(); //play NYSE opening bell when Submit is clicked
+
     }); //user clicks Submit
+
+    // audioElement1.play(); //play NYSE opening bell when Submit is clicked
+
     $("#instructions").on("click", beginGame)
     event.preventDefault();
+    audioElement1.play(); //play NYSE opening bell when Submit is clicked
+
     };
+    // audioElement1.play(); //play NYSE opening bell when Submit is clicked
 
     function instructions(){
         if(logInfo()){
@@ -82,6 +99,7 @@ $(document).ready(function(){
         }
         event.preventDefault();
         //console.log("B")
+        
     };
     
     function beginGame(){
@@ -286,6 +304,7 @@ function plotDay(x){
   }  
 
 
+
 //the buttons for the action the user chooses
 //the modifier will be a negative or positive percentage based on the rise or fall of the price
 $("#sell-button").on("click", function(event) {
@@ -299,8 +318,10 @@ $("#sell-button").on("click", function(event) {
         //The user sold all his stock, he is fully divested, the money he has is equal to his orignal userCash at the beginning of the round
         //userCash = userCash
         var gainz = userCash*modifier;
+
         if (modifier > 0){
             $("#messagesToUser").text("You missed out on " + gainz.toFixed(2) + " dollars, idiot! You have $" + userCash.toFixed(2) + ".");
+            audioElement2.play(); //Doh! sound
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
@@ -318,6 +339,10 @@ $("#sell-button").on("click", function(event) {
 
 $("#buy-button").on("click", function(event) {
     event.preventDefault();
+
+    var audioElement2 = document.createElement("audio");
+    audioElement2.setAttribute("src", "assets/fail-trombone-01.mp3");
+  
     //check to see if they have already made a choice for this round
     if (alreadyChoseFlag === false){
         alreadyChoseFlag = true;
@@ -331,12 +356,14 @@ $("#buy-button").on("click", function(event) {
         });
         
         if (modifier > 0){
+            audioElement3.play(); //woohoo! sound
             $("#messagesToUser").text("Good job, you made $" + gainz.toFixed(2) + "! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
+            audioElement2.play();
             $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(gainz)).toFixed(2) + "! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
@@ -361,12 +388,14 @@ $("#hold-button").on("click", function(event) {
         });
         
         if (modifier > 0){
+            audioElement2.play();
             $("#messagesToUser").text("You missed out on $" + (0.5*gainz).toFixed(2) + ", idiot! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
+            audioElement2.play();
             $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(0.5*gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
