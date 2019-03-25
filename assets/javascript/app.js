@@ -338,7 +338,7 @@ $("#sell-button").on("click", function(event) {
         //wait for a couple of seconds and then start a new round
        // $("#chartImage").empty();
         plotDay("second");
-        ajax();
+        setTimeout(ajax, 1500);
     }
 });
 
@@ -374,7 +374,7 @@ $("#buy-button").on("click", function(event) {
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
         plotDay("second");
-        ajax();
+        setTimeout(ajax, 1500);
     }
 });
 
@@ -406,7 +406,7 @@ $("#hold-button").on("click", function(event) {
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
         plotDay("second");
-        ajax();
+        setTimeout(ajax, 1500);
     }
 });
 
