@@ -56,7 +56,8 @@ $(document).ready(function(){
     $("#submitBtn").on("click", function(event){
         
         event.preventDefault();
-        audioElement.play(); //play coin drop when Submit is clicked
+        // audioElement.play(); //play coin drop when Submit is clicked
+        // audioElement1.play(); //NYSE sound
         $('#p1').empty();
         $('#p2').empty();
         var username=$("#username").val().trim();
@@ -64,30 +65,27 @@ $(document).ready(function(){
         if(username!=""){
             if (isEmail(email)){
                 instructions();
+                audioElement1.play(); //play NYSE opening bell when Submit is clicked
+
             }
             else{
                 $('#p2').text("* Please enter a valid email address *"); // This Segment Displays The Validation Rule For Email
                 $("#email").focus();
+                audioElement1.muted(); //dont play NYSE opening bell if incorrect email is entered
             }
         }
         else{
             $('#p1').text("* Please enter a valid user name *"); // This Segment Displays The Validation Rule For Email
             $("#username").focus();
+            audioElement1.muted(); //dont play NYSE opening bell if incorrect email is entered
         }
-    
-        // audioElement1.play(); //play NYSE opening bell when Submit is clicked
 
     }); //user clicks Submit
 
-    // audioElement1.play(); //play NYSE opening bell when Submit is clicked
-
     $("#instructions").on("click", beginGame)
     event.preventDefault();
-    audioElement1.play(); //play NYSE opening bell when Submit is clicked
 
     };
-    // audioElement1.play(); //play NYSE opening bell when Submit is clicked
-
     function instructions(){
         if(logInfo()){
 
