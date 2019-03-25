@@ -39,10 +39,11 @@ var audioElement2 = document.createElement("audio");
 audioElement2.setAttribute("src", "assets/Doh 9.mp3" ) //Doh! Plays when you lose something
 
 var audioElement3 = document.createElement("audio");
-audioElement3.setAttribute("src", "assets/Yawn-sound-effect.mp3" ) //Yawn. Plays when you sell and dont make much of a difference
+audioElement3.setAttribute("src", "assets/woohoo.mp3" ) //Woohoo! Plays when you make money
 
+var audioElement4 = document.createElement("audio");
+audioElement4.setAttribute("src", "assets/Yawn-sound-effect.mp3" ) //Woohoo! Plays when you make money
 
-Yawn-sound-effect
 
 var alreadyChoseFlag = true;
 var napi=["78528141bbbb4859a1043d285a0e2603","7ba42f39aff0466dae6b8019f2feebf5","2a0f6c0b35bc4e59a2a2c42ca6ec054e"];
@@ -327,17 +328,17 @@ $("#sell-button").on("click", function(event) {
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
-            audioElement3.play();
         }
         else if (modifier < 0){
             $("#messagesToUser").text("You dodged a bullet this time, you could have lost $" + (Math.abs(gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
+            audioElement4.play(); //Yawn sound
+
         }
    
         //wait for a couple of seconds and then start a new round
        // $("#chartImage").empty();
         plotDay("second");
-        setTimeout(ajax, 2000);
-        
+        ajax();
     }
 });
 
@@ -373,7 +374,7 @@ $("#buy-button").on("click", function(event) {
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
         plotDay("second");
-        setTimeout(ajax, 2000);
+        ajax();
     }
 });
 
@@ -385,27 +386,27 @@ $("#hold-button").on("click", function(event) {
         alreadyChoseFlag = true;
         // if the user holds, then he keeps half in cash and the other half stays invested.
         //I have decided that you should be berated for whatever decision you make.
-        var gainz = 0.5*userCash*modifier;
-        userCash = userCash + gainz;
+        var gainz = userCash*modifier;
+        userCash = 0.5*userCash + 0.5*gainz;
         database.ref("/"+username).update({
             cash:userCash
         });
         
         if (modifier > 0){
             audioElement2.play();
-            $("#messagesToUser").text("You missed out on $" + (gainz).toFixed(2) + ", idiot! You have $" + userCash.toFixed(2) + ".");
+            $("#messagesToUser").text("You missed out on $" + (0.5*gainz).toFixed(2) + ", idiot! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
             audioElement2.play();
-            $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
+            $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(0.5*gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
         plotDay("second");
-        setTimeout(ajax, 2000);
+        ajax();
     }
 });
 
