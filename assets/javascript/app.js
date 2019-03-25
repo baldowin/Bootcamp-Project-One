@@ -338,7 +338,7 @@ $("#sell-button").on("click", function(event) {
         //wait for a couple of seconds and then start a new round
        // $("#chartImage").empty();
         plotDay("second");
-        ajax();
+        setTimeout(ajax, 1500);
     }
 });
 
@@ -374,7 +374,7 @@ $("#buy-button").on("click", function(event) {
         //console.log(userCash);
         //wait for a couple of seconds and then start a new round
         plotDay("second");
-        ajax();
+        setTimeout(ajax, 1500);
     }
 });
 
@@ -386,27 +386,27 @@ $("#hold-button").on("click", function(event) {
         alreadyChoseFlag = true;
         // if the user holds, then he keeps half in cash and the other half stays invested.
         //I have decided that you should be berated for whatever decision you make.
-        var gainz = userCash*modifier;
-        userCash = 0.5*userCash + 0.5*gainz;
+        var gainz = 0.5*userCash*modifier;
+        userCash = userCash + gainz;
         database.ref("/"+username).update({
             cash:userCash
         });
         
         if (modifier > 0){
             audioElement2.play();
-            $("#messagesToUser").text("You missed out on $" + (0.5*gainz).toFixed(2) + ", idiot! You have $" + userCash.toFixed(2) + ".");
+            $("#messagesToUser").text("You missed out on $" + gainz.toFixed(2) + ", idiot! You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
         }
         else if (modifier < 0){
             audioElement2.play();
-            $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(0.5*gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
+            $("#messagesToUser").text("How could you be so stupid? You lost $" + (Math.abs(gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
         }
         //console.log(userCash);
         //wait for a couple of seconds and then start a new 
         plotDay("second");
-        ajax();
+        setTimeout(ajax, 1500);
     }
 });
 
