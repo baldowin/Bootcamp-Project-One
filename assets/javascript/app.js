@@ -39,7 +39,10 @@ var audioElement2 = document.createElement("audio");
 audioElement2.setAttribute("src", "assets/Doh 9.mp3" ) //Doh! Plays when you lose something
 
 var audioElement3 = document.createElement("audio");
-audioElement3.setAttribute("src", "assets/woohoo.mp3" ) //Woohoo! Plays when you make money
+audioElement3.setAttribute("src", "assets/Yawn-sound-effect.mp3" ) //Yawn. Plays when you sell and dont make much of a difference
+
+
+Yawn-sound-effect
 
 var alreadyChoseFlag = true;
 var napi=["78528141bbbb4859a1043d285a0e2603","7ba42f39aff0466dae6b8019f2feebf5","2a0f6c0b35bc4e59a2a2c42ca6ec054e"];
@@ -324,6 +327,7 @@ $("#sell-button").on("click", function(event) {
         }
         else if (modifier === 0){
             $("#messagesToUser").text("I guess your choice really didnt make a difference. You have $" + userCash.toFixed(2) + ".");
+            audioElement3.play();
         }
         else if (modifier < 0){
             $("#messagesToUser").text("You dodged a bullet this time, you could have lost $" + (Math.abs(gainz)).toFixed(2) +"! You have $" + userCash.toFixed(2) + ".")
